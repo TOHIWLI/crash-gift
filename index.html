@@ -3,77 +3,288 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#080808">
 <title>CRASH GIFT</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#090909;color:#f5d47a;font-family:Arial,sans-serif;text-align:center}
-header{padding:24px;font-size:30px;font-weight:bold;letter-spacing:3px}
-.wallet{margin:10px auto;padding:14px;border:1px solid #b99442;border-radius:12px;width:85%;max-width:350px}
-.game{margin:30px auto;width:90%;max-width:420px;height:270px;background:radial-gradient(#29200c,#090909);border:1px solid #70551d;border-radius:18px;position:relative;overflow:hidden}
-#rocket{font-size:48px;position:absolute;left:12%;bottom:25px}
-#multiplier{font-size:45px;margin-top:70px;font-weight:bold}
-.controls{margin:20px}
-input{background:#191919;color:white;border:1px solid #b99442;padding:14px;border-radius:9px;width:120px}
-button{background:linear-gradient(90deg,#a77b20,#f5d47a);border:0;padding:14px 24px;border-radius:9px;font-weight:bold;margin:8px;cursor:pointer}
-button:disabled{opacity:.4}
-#status{margin:18px;font-size:18px}
+body{
+ margin:0;background:#080808;color:#f5d47a;
+ font-family:Arial,sans-serif;text-align:center;
+ min-height:100vh;overflow-x:hidden
+}
+header{padding:22px 10px 12px;font-size:29px;font-weight:900;letter-spacing:3px}
+header span{color:#fff}
+.sub{font-size:10px;letter-spacing:5px;color:#92763a;margin-bottom:22px}
+.wallet{
+ margin:0 auto 18px;width:91%;max-width:480px;
+ border:1px solid #80652c;border-radius:15px;
+ padding:15px;background:linear-gradient(110deg,#17130b,#080808);
+ display:flex;justify-content:space-between;align-items:center;
+ font-size:15px
+}
+.wallet strong{color:#ffe39a}
+.game{
+ width:92%;max-width:500px;height:340px;margin:auto;
+ border:1px solid #725522;border-radius:22px;overflow:hidden;
+ position:relative;background:radial-gradient(ellipse at 50% 70%,#211906,#0b0a08 65%);
+ box-shadow:0 0 35px #a77b201c,inset 0 0 35px #b98a2515
+}
+canvas{width:100%;height:100%;display:block}
+.multiplier{
+ position:absolute;top:25%;left:0;width:100%;
+ font-size:52px;font-weight:900;color:#ffe18b;
+ text-shadow:0 0 20px #d99d34;pointer-events:none
+}
+.multiplier.crashed{color:#ff5555;text-shadow:0 0 25px red}
+.status{
+ min-height:30px;margin:15px auto 10px;
+ font-size:15px;color:#e6c875;font-weight:bold
+}
+.controls{width:92%;max-width:500px;margin:auto}
+.betrow{display:flex;gap:10px;justify-content:center;align-items:center}
+input{
+ width:130px;background:#171717;border:1px solid #9b7934;
+ border-radius:12px;padding:15px;color:white;font-size:18px;
+ text-align:center;outline:none
+}
+button{
+ border:0;border-radius:12px;padding:16px 22px;
+ font-size:15px;font-weight:900;cursor:pointer;
+ color:#171006;background:linear-gradient(110deg,#a8791d,#ffe08a);
+ box-shadow:0 4px 18px #d5a13b25
+}
+button:disabled{opacity:.35;cursor:not-allowed;box-shadow:none}
+.buttons{display:flex;gap:10px;margin-top:12px}
+.buttons button{flex:1}
+#cash{background:linear-gradient(110deg,#147b55,#40e4a0);color:#041b12}
+.section{
+ width:92%;max-width:500px;margin:25px auto;
+ background:#111;border:1px solid #302718;border-radius:16px;
+ padding:15px
+}
+.section h3{margin:0 0 14px;text-align:left;font-size:14px;color:#d8b75f}
+.history{display:flex;gap:8px;overflow-x:auto;padding-bottom:5px}
+.pill{padding:9px 13px;border-radius:10px;background:#193b2e;color:#65e7a7;font-weight:bold;white-space:nowrap}
+.pill.low{background:#402020;color:#ff7777}
+.pill.mid{background:#3c3017;color:#f4ca68}
+.info{display:flex;justify-content:space-between;color:#aaa;font-size:12px;margin-top:12px}
+.footer{color:#66552e;font-size:11px;padding:15px 0 25px;letter-spacing:2px}
 </style>
 </head>
 <body>
-<header>🚀 CRASH GIFT</header>
-<div class="wallet">💎 BALANCE: <span id="balance">1000</span> CG</div>
+
+<header>🚀 <span>CRASH</span> GIFT</header>
+<div class="sub">PLAY • FLY • WIN</div>
+
+<div class="wallet">
+ <span>💎 VIRTUAL BALANCE</span>
+ <strong id="balance">1,000 CG</strong>
+</div>
+
 <div class="game">
-<div id="multiplier">1.00x</div>
-<div id="rocket">🚀</div>
+ <canvas id="screen"></canvas>
+ <div class="multiplier" id="multiplier">1.00x</div>
 </div>
+
+<div class="status" id="status">READY FOR TAKEOFF?</div>
+
 <div class="controls">
-<input id="bet" type="number" min="1" max="1000" value="50">
-<div>
-<button id="start" onclick="startGame()">START</button>
-<button id="cash" onclick="cashOut()" disabled>CASH OUT</button>
+ <div class="betrow">
+  <input id="bet" type="number" min="1" step="1" value="50">
+  <button onclick="setBet(100)">100</button>
+  <button onclick="setBet(500)">500</button>
+ </div>
+ <div class="buttons">
+  <button id="start" onclick="startGame()">🚀 START</button>
+  <button id="cash" onclick="cashOut()" disabled>💎 CASH OUT</button>
+ </div>
 </div>
-<div id="status">READY TO PLAY?</div>
+
+<div class="section">
+ <h3>📈 RECENT MULTIPLIERS</h3>
+ <div class="history" id="history">
+  <span style="color:#777">No rounds yet</span>
+ </div>
+ <div class="info">
+  <span>CRASH GIFT</span>
+  <span>VIRTUAL GAME</span>
+ </div>
 </div>
+
+<div class="footer">CRASH GIFT • PLAY BEYOND LIMITS</div>
+
 <script>
-let balance=1000,bet=0,mult=1,crash=1,playing=false,timer=null,cashed=false;
 const $=id=>document.getElementById(id);
-function update(){
-$('balance').textContent=balance;
-$('multiplier').textContent=mult.toFixed(2)+'x';
-$('rocket').style.left=Math.min(12+(mult-1)*9,82)+'%';
-$('rocket').style.bottom=Math.min(25+(mult-1)*8,180)+'px';
+const canvas=$('screen');
+const ctx=canvas.getContext('2d');
+
+let balance=Number(localStorage.getItem('cg_balance')||1000);
+let history=JSON.parse(localStorage.getItem('cg_history')||'[]');
+let playing=false,cashed=false;
+let bet=0,mult=1,crashPoint=0,startTime=0;
+let animationId=null,particles=[];
+
+function save(){
+ localStorage.setItem('cg_balance',balance);
+ localStorage.setItem('cg_history',JSON.stringify(history));
 }
+
+function updateBalance(){
+ $('balance').textContent=balance.toLocaleString()+' CG';
+}
+
+function setBet(n){
+ $('bet').value=n;
+}
+
+function resize(){
+ const rect=canvas.getBoundingClientRect();
+ const dpr=Math.min(devicePixelRatio||1,2);
+ canvas.width=rect.width*dpr;
+ canvas.height=rect.height*dpr;
+ ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+window.addEventListener('resize',resize);
+resize();
+
+function draw(){
+ const w=canvas.clientWidth,h=canvas.clientHeight;
+ ctx.clearRect(0,0,w,h);
+
+ // Background grid
+ ctx.strokeStyle='rgba(215,170,75,.07)';
+ ctx.lineWidth=1;
+ for(let x=0;x<w;x+=35){
+  ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();
+ }
+ for(let y=0;y<h;y+=35){
+  ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();
+ }
+
+ // Flight curve
+ const progress=playing?Math.min((mult-1)/8,1):0;
+ const px=35+progress*(w-90);
+ const py=h-45-progress*(h-105);
+
+ if(playing||mult>1){
+  ctx.beginPath();
+  ctx.moveTo(25,h-30);
+  ctx.quadraticCurveTo(w*.30,h-25,px,py);
+  ctx.strokeStyle='#ffca4d';
+  ctx.lineWidth=4;
+  ctx.shadowColor='#ffb900';
+  ctx.shadowBlur=18;
+  ctx.stroke();
+  ctx.shadowBlur=0;
+ }
+
+ // Particles
+ if(playing&&Math.random()<.3){
+  particles.push({x:px-5,y:py+12,vx:(Math.random()-.5)*2,vy:Math.random()*2+1,life:1});
+ }
+ particles=particles.filter(p=>p.life>0);
+ particles.forEach(p=>{
+  p.x+=p.vx;p.y+=p.vy;p.life-=.035;
+  ctx.fillStyle=`rgba(255,190,60,${p.life})`;
+  ctx.beginPath();ctx.arc(p.x,p.y,3,0,Math.PI*2);ctx.fill();
+ });
+
+ // Rocket
+ if(playing){
+  ctx.font='43px Arial';
+  ctx.textAlign='center';
+  ctx.fillText('🚀',px,py+12);
+ }
+ animationId=requestAnimationFrame(draw);
+}
+draw();
+
+function renderHistory(){
+ $('history').innerHTML='';
+ if(!history.length){
+  $('history').innerHTML='<span style="color:#777">No rounds yet</span>';
+  return;
+ }
+ history.slice(0,15).forEach(n=>{
+  const el=document.createElement('span');
+  el.className='pill '+(n<2?'low':n<5?'mid':'');
+  el.textContent=n.toFixed(2)+'x';
+  $('history').appendChild(el);
+ });
+}
+
+function finishRound(){
+ playing=false;
+ $('start').disabled=false;
+ $('cash').disabled=true;
+ $('multiplier').classList.add('crashed');
+ $('multiplier').textContent='💥 '+crashPoint.toFixed(2)+'x';
+ $('status').textContent=cashed?'ROUND COMPLETED':'ROCKET CRASHED!';
+ history.unshift(crashPoint);
+ history=history.slice(0,30);
+ save();
+ renderHistory();
+ updateBalance();
+}
+
 function startGame(){
-if(playing)return;
-bet=Number($('bet').value);
-if(!Number.isInteger(bet)||bet<1||bet>balance){
-$('status').textContent='INVALID BET';return;
+ if(playing)return;
+ bet=Number($('bet').value);
+ if(!Number.isInteger(bet)||bet<1||bet>balance){
+  $('status').textContent='INVALID BET AMOUNT';
+  return;
+ }
+ balance-=bet;
+ save();
+ updateBalance();
+
+ mult=1;
+ cashed=false;
+ playing=true;
+ startTime=performance.now();
+
+ // Demo-only random crash result
+ crashPoint=Math.max(1,0.98/Math.random());
+
+ $('start').disabled=true;
+ $('cash').disabled=false;
+ $('multiplier').classList.remove('crashed');
+ $('status').textContent='🚀 ROCKET IS FLYING!';
+ particles=[];
+
+ function tick(now){
+  if(!playing)return;
+  const seconds=(now-startTime)/1000;
+  mult=Math.exp(seconds*.22);
+  $('multiplier').textContent=mult.toFixed(2)+'x';
+
+  if(mult>=crashPoint){
+   mult=crashPoint;
+   finishRound();
+   return;
+  }
+  requestAnimationFrame(tick);
+ }
+ requestAnimationFrame(tick);
 }
-balance-=bet;mult=1;cashed=false;playing=true;
-crash=1+(-Math.log(1-Math.random())*1.3);
-$('start').disabled=true;$('cash').disabled=false;
-$('status').textContent='ROCKET IS FLYING!';
-timer=setInterval(()=>{
-mult+=0.025+mult*0.012;
-update();
-if(mult>=crash)finish();
-},100);
-}
+
 function cashOut(){
-if(!playing||cashed)return;
-cashed=true;clearInterval(timer);playing=false;
-let prize=Math.floor(bet*mult);
-balance+=prize;
-$('status').textContent='YOU WON '+prize+' CG!';
-$('cash').disabled=true;$('start').disabled=false;
-update();
+ if(!playing||cashed)return;
+ cashed=true;
+ const prize=Math.floor(bet*mult);
+ balance+=prize;
+ playing=false;
+ $('status').textContent='🎉 YOU WON '+prize+' CG!';
+ $('start').disabled=false;
+ $('cash').disabled=true;
+ save();
+ updateBalance();
+ $('multiplier').textContent=mult.toFixed(2)+'x';
 }
-function finish(){
-clearInterval(timer);playing=false;
-$('status').textContent=cashed?'ROUND COMPLETE':'CRASHED! YOU LOST '+bet+' CG';
-$('cash').disabled=true;$('start').disabled=false;
-}
+
+updateBalance();
+renderHistory();
 </script>
 </body>
 </html>
