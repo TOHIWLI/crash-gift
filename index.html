@@ -4,72 +4,108 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#080808">
+<meta name="theme-color" content="#050609">
 <title>CRASH GIFT</title>
 <style>
 *{box-sizing:border-box}
 body{
- margin:0;background:#080808;color:#f5d47a;
+ margin:0;background:#050609;color:#f5d47a;
  font-family:Arial,sans-serif;text-align:center;
  min-height:100vh;overflow-x:hidden
 }
-header{padding:22px 10px 12px;font-size:29px;font-weight:900;letter-spacing:3px}
-header span{color:#fff}
-.sub{font-size:10px;letter-spacing:5px;color:#92763a;margin-bottom:22px}
-.wallet{
- margin:0 auto 18px;width:91%;max-width:480px;
- border:1px solid #80652c;border-radius:15px;
- padding:15px;background:linear-gradient(110deg,#17130b,#080808);
- display:flex;justify-content:space-between;align-items:center;
- font-size:15px
+header{
+ padding:22px 10px 8px;font-size:30px;
+ font-weight:900;letter-spacing:3px;
+ text-shadow:0 0 18px #d69c36
 }
-.wallet strong{color:#ffe39a}
+header span{color:white}
+.sub{
+ font-size:10px;letter-spacing:5px;
+ color:#a78a4c;margin-bottom:20px
+}
+.wallet{
+ margin:0 auto 15px;width:92%;max-width:500px;
+ border:1px solid #98752d;border-radius:16px;
+ padding:17px;background:linear-gradient(110deg,#211808,#090a0d);
+ display:flex;justify-content:space-between;
+ align-items:center;font-size:14px;
+ box-shadow:0 0 20px #d9a33115
+}
+.wallet strong{color:#ffe39a;font-size:17px}
 .game{
- width:92%;max-width:500px;height:340px;margin:auto;
- border:1px solid #725522;border-radius:22px;overflow:hidden;
- position:relative;background:radial-gradient(ellipse at 50% 70%,#211906,#0b0a08 65%);
- box-shadow:0 0 35px #a77b201c,inset 0 0 35px #b98a2515
+ width:94%;max-width:540px;height:470px;
+ margin:auto;border:1px solid #8d6929;
+ border-radius:22px;overflow:hidden;
+ position:relative;
+ background:#050a17;
+ box-shadow:0 0 35px #e5a52b25,inset 0 0 30px #e4a72a20
 }
 canvas{width:100%;height:100%;display:block}
 .multiplier{
- position:absolute;top:25%;left:0;width:100%;
- font-size:52px;font-weight:900;color:#ffe18b;
- text-shadow:0 0 20px #d99d34;pointer-events:none
+ position:absolute;top:13%;left:0;width:100%;
+ font-size:54px;font-weight:900;
+ color:#ffe18b;text-shadow:0 0 25px #ffad21;
+ pointer-events:none;z-index:2
 }
-.multiplier.crashed{color:#ff5555;text-shadow:0 0 25px red}
+.multiplier.crashed{
+ color:#ff5252;text-shadow:0 0 25px red
+}
 .status{
- min-height:30px;margin:15px auto 10px;
- font-size:15px;color:#e6c875;font-weight:bold
+ min-height:32px;margin:15px auto 10px;
+ font-size:14px;color:#e6c875;font-weight:bold;
+ padding:0 10px
 }
-.controls{width:92%;max-width:500px;margin:auto}
-.betrow{display:flex;gap:10px;justify-content:center;align-items:center}
+.controls{width:94%;max-width:540px;margin:auto}
+.betrow{
+ display:flex;gap:9px;justify-content:center;
+ align-items:center
+}
 input{
- width:130px;background:#171717;border:1px solid #9b7934;
- border-radius:12px;padding:15px;color:white;font-size:18px;
+ min-width:0;width:36%;background:#171717;
+ border:1px solid #9b7934;border-radius:12px;
+ padding:15px 5px;color:white;font-size:18px;
  text-align:center;outline:none
 }
 button{
- border:0;border-radius:12px;padding:16px 22px;
+ border:0;border-radius:12px;padding:16px 18px;
  font-size:15px;font-weight:900;cursor:pointer;
- color:#171006;background:linear-gradient(110deg,#a8791d,#ffe08a);
+ color:#171006;
+ background:linear-gradient(110deg,#a8791d,#ffe08a);
  box-shadow:0 4px 18px #d5a13b25
 }
 button:disabled{opacity:.35;cursor:not-allowed;box-shadow:none}
+.betrow button{flex:1}
 .buttons{display:flex;gap:10px;margin-top:12px}
-.buttons button{flex:1}
-#cash{background:linear-gradient(110deg,#147b55,#40e4a0);color:#041b12}
-.section{
- width:92%;max-width:500px;margin:25px auto;
- background:#111;border:1px solid #302718;border-radius:16px;
- padding:15px
+.buttons button{flex:1;padding:19px 8px}
+#cash{
+ background:linear-gradient(110deg,#147b55,#40e4a0);
+ color:#041b12
 }
-.section h3{margin:0 0 14px;text-align:left;font-size:14px;color:#d8b75f}
+.section{
+ width:94%;max-width:540px;margin:22px auto;
+ background:#111318;border:1px solid #49391e;
+ border-radius:16px;padding:15px
+}
+.section h3{
+ margin:0 0 14px;text-align:left;
+ font-size:14px;color:#d8b75f
+}
 .history{display:flex;gap:8px;overflow-x:auto;padding-bottom:5px}
-.pill{padding:9px 13px;border-radius:10px;background:#193b2e;color:#65e7a7;font-weight:bold;white-space:nowrap}
+.pill{
+ padding:9px 13px;border-radius:10px;
+ background:#193b2e;color:#65e7a7;
+ font-weight:bold;white-space:nowrap
+}
 .pill.low{background:#402020;color:#ff7777}
 .pill.mid{background:#3c3017;color:#f4ca68}
-.info{display:flex;justify-content:space-between;color:#aaa;font-size:12px;margin-top:12px}
-.footer{color:#66552e;font-size:11px;padding:15px 0 25px;letter-spacing:2px}
+.info{
+ display:flex;justify-content:space-between;
+ color:#aaa;font-size:12px;margin-top:12px
+}
+.footer{
+ color:#66552e;font-size:11px;
+ padding:15px 0 25px;letter-spacing:2px
+}
 </style>
 </head>
 <body>
@@ -121,9 +157,13 @@ const ctx=canvas.getContext('2d');
 
 let balance=Number(localStorage.getItem('cg_balance')||1000);
 let history=JSON.parse(localStorage.getItem('cg_history')||'[]');
-let playing=false,cashed=false;
+
+let roundActive=false;
+let cashed=false;
 let bet=0,mult=1,crashPoint=0,startTime=0;
-let animationId=null,particles=[];
+let particles=[];
+let stars=[];
+let animationId=null;
 
 function save(){
  localStorage.setItem('cg_balance',balance);
@@ -140,64 +180,258 @@ function setBet(n){
 
 function resize(){
  const rect=canvas.getBoundingClientRect();
- const dpr=Math.min(devicePixelRatio||1,2);
+ const dpr=Math.min(window.devicePixelRatio||1,2);
  canvas.width=rect.width*dpr;
  canvas.height=rect.height*dpr;
  ctx.setTransform(dpr,0,0,dpr,0,0);
+
+ stars=[];
+ for(let i=0;i<100;i++){
+  stars.push({
+   x:Math.random()*rect.width,
+   y:Math.random()*rect.height,
+   size:Math.random()*1.8+.3,
+   speed:Math.random()*.35+.08,
+   alpha:Math.random()
+  });
+ }
 }
 window.addEventListener('resize',resize);
 resize();
 
+function glow(color,blur){
+ ctx.shadowColor=color;
+ ctx.shadowBlur=blur;
+}
+
+function drawSpace(w,h,time){
+ const bg=ctx.createLinearGradient(0,0,0,h);
+ bg.addColorStop(0,'#030611');
+ bg.addColorStop(.55,'#10162b');
+ bg.addColorStop(1,'#271b19');
+ ctx.fillStyle=bg;
+ ctx.fillRect(0,0,w,h);
+
+ // Stars
+ stars.forEach(s=>{
+  s.y+=s.speed;
+  if(s.y>h){s.y=0;s.x=Math.random()*w}
+  ctx.globalAlpha=.35+Math.sin(time*.002+s.alpha*10)*.3;
+  ctx.fillStyle='#ffffff';
+  ctx.beginPath();
+  ctx.arc(s.x,s.y,s.size,0,Math.PI*2);
+  ctx.fill();
+ });
+ ctx.globalAlpha=1;
+
+ // Distant planet
+ const planetX=w*.82,planetY=h*.38,r=w*.105;
+ const pg=ctx.createRadialGradient(
+  planetX-r*.4,planetY-r*.5,2,planetX,planetY,r
+ );
+ pg.addColorStop(0,'#7f8ca7');
+ pg.addColorStop(.45,'#263b60');
+ pg.addColorStop(1,'#080d1b');
+ ctx.fillStyle=pg;
+ glow('#7189bb',22);
+ ctx.beginPath();
+ ctx.arc(planetX,planetY,r,0,Math.PI*2);
+ ctx.fill();
+ ctx.shadowBlur=0;
+
+ // Planet ring
+ ctx.save();
+ ctx.translate(planetX,planetY);
+ ctx.rotate(-.2);
+ ctx.strokeStyle='rgba(202,165,99,.5)';
+ ctx.lineWidth=3;
+ ctx.beginPath();
+ ctx.ellipse(0,0,r*1.5,r*.35,0,0,Math.PI*2);
+ ctx.stroke();
+ ctx.restore();
+
+ // Earth horizon
+ const earth=ctx.createLinearGradient(0,h*.78,0,h);
+ earth.addColorStop(0,'#41618a');
+ earth.addColorStop(.25,'#142b50');
+ earth.addColorStop(1,'#03050d');
+ ctx.fillStyle=earth;
+ ctx.beginPath();
+ ctx.moveTo(0,h*.86);
+ ctx.quadraticCurveTo(w*.48,h*.65,w,h*.82);
+ ctx.lineTo(w,h);
+ ctx.lineTo(0,h);
+ ctx.fill();
+
+ ctx.strokeStyle='rgba(104,174,255,.8)';
+ ctx.lineWidth=3;
+ glow('#55aaff',16);
+ ctx.beginPath();
+ ctx.moveTo(0,h*.86);
+ ctx.quadraticCurveTo(w*.48,h*.65,w,h*.82);
+ ctx.stroke();
+ ctx.shadowBlur=0;
+
+ // Surface lights
+ for(let i=0;i<30;i++){
+  const x=(i/30)*w;
+  const y=h*.9+Math.sin(i*4)*8;
+  ctx.fillStyle='rgba(255,192,95,.5)';
+  ctx.fillRect(x,y,2,1);
+ }
+}
+
+function getFlight(){
+ const w=canvas.clientWidth,h=canvas.clientHeight;
+ const progress=roundActive?
+  Math.min(Math.max((mult-1)/8,0),1):0;
+
+ return {
+  x:35+progress*(w-100),
+  y:h-95-progress*(h-190),
+  progress
+ };
+}
+
+function drawRocket(x,y,time){
+ ctx.save();
+ ctx.translate(x,y);
+ ctx.rotate(-.48);
+
+ // Smoke
+ for(let i=0;i<9;i++){
+  const s=particles.length+i;
+  const offset=(time*.04+i*17)%48;
+  ctx.globalAlpha=.12+(i/9)*.12;
+  ctx.fillStyle=i%2?'#aeb8ca':'#e7a45b';
+  ctx.beginPath();
+  ctx.arc(-offset-15,Math.sin(time*.006+i)*5,5+i*.8,0,Math.PI*2);
+  ctx.fill();
+ }
+ ctx.globalAlpha=1;
+
+ // Rocket flame
+ const flame=16+Math.random()*13;
+ const fg=ctx.createLinearGradient(-12,0,-flame-25,0);
+ fg.addColorStop(0,'#fff7b2');
+ fg.addColorStop(.35,'#ffb52c');
+ fg.addColorStop(1,'rgba(255,66,15,0)');
+ ctx.fillStyle=fg;
+ glow('#ff8b1a',24);
+ ctx.beginPath();
+ ctx.moveTo(-10,-7);
+ ctx.lineTo(-flame-22,0);
+ ctx.lineTo(-10,7);
+ ctx.closePath();
+ ctx.fill();
+ ctx.shadowBlur=0;
+
+ // Rocket body
+ const body=ctx.createLinearGradient(0,-13,0,13);
+ body.addColorStop(0,'#ffffff');
+ body.addColorStop(.5,'#aab6ca');
+ body.addColorStop(1,'#56637a');
+
+ ctx.fillStyle=body;
+ ctx.beginPath();
+ ctx.moveTo(28,0);
+ ctx.quadraticCurveTo(13,-15,-13,-10);
+ ctx.lineTo(-19,0);
+ ctx.lineTo(-13,10);
+ ctx.quadraticCurveTo(13,15,28,0);
+ ctx.fill();
+
+ // Nose
+ ctx.fillStyle='#f4c65e';
+ ctx.beginPath();
+ ctx.moveTo(28,0);
+ ctx.lineTo(12,-9);
+ ctx.lineTo(12,9);
+ ctx.closePath();
+ ctx.fill();
+
+ // Fins
+ ctx.fillStyle='#c18c30';
+ ctx.beginPath();
+ ctx.moveTo(-9,-8);
+ ctx.lineTo(-19,-20);
+ ctx.lineTo(-2,-10);
+ ctx.fill();
+ ctx.beginPath();
+ ctx.moveTo(-9,8);
+ ctx.lineTo(-19,20);
+ ctx.lineTo(-2,10);
+ ctx.fill();
+
+ // Window
+ ctx.fillStyle='#102c51';
+ glow('#52bfff',12);
+ ctx.beginPath();
+ ctx.arc(8,0,5,0,Math.PI*2);
+ ctx.fill();
+ ctx.strokeStyle='#d7eaff';
+ ctx.lineWidth=2;
+ ctx.stroke();
+ ctx.shadowBlur=0;
+
+ ctx.restore();
+}
+
 function draw(){
  const w=canvas.clientWidth,h=canvas.clientHeight;
+ const time=performance.now();
+
  ctx.clearRect(0,0,w,h);
+ drawSpace(w,h,time);
 
- // Background grid
- ctx.strokeStyle='rgba(215,170,75,.07)';
- ctx.lineWidth=1;
- for(let x=0;x<w;x+=35){
-  ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();
- }
- for(let y=0;y<h;y+=35){
-  ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();
- }
+ const flight=getFlight();
+ const {x,y,progress}=flight;
 
- // Flight curve
- const progress=playing?Math.min((mult-1)/8,1):0;
- const px=35+progress*(w-90);
- const py=h-45-progress*(h-105);
-
- if(playing||mult>1){
+ // Flight trail
+ if(roundActive||mult>1){
   ctx.beginPath();
-  ctx.moveTo(25,h-30);
-  ctx.quadraticCurveTo(w*.30,h-25,px,py);
-  ctx.strokeStyle='#ffca4d';
-  ctx.lineWidth=4;
-  ctx.shadowColor='#ffb900';
-  ctx.shadowBlur=18;
+  ctx.moveTo(10,h-100);
+  ctx.quadraticCurveTo(w*.27,h-180,x,y);
+  ctx.strokeStyle='rgba(255,193,70,.65)';
+  ctx.lineWidth=2;
+  glow('#ffb52d',14);
   ctx.stroke();
   ctx.shadowBlur=0;
  }
 
- // Particles
- if(playing&&Math.random()<.3){
-  particles.push({x:px-5,y:py+12,vx:(Math.random()-.5)*2,vy:Math.random()*2+1,life:1});
+ // Flying particles
+ if(roundActive&&Math.random()<.7){
+  particles.push({
+   x:x-12,y:y+7,
+   vx:-Math.random()*2-1,
+   vy:Math.random()*2,
+   life:1,
+   size:Math.random()*3+1
+  });
  }
+
  particles=particles.filter(p=>p.life>0);
  particles.forEach(p=>{
-  p.x+=p.vx;p.y+=p.vy;p.life-=.035;
-  ctx.fillStyle=`rgba(255,190,60,${p.life})`;
-  ctx.beginPath();ctx.arc(p.x,p.y,3,0,Math.PI*2);ctx.fill();
+  p.x+=p.vx;
+  p.y+=p.vy;
+  p.life-=.025;
+  ctx.globalAlpha=p.life;
+  ctx.fillStyle='#ffb73f';
+  glow('#ff8a1a',10);
+  ctx.beginPath();
+  ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+  ctx.fill();
  });
+ ctx.globalAlpha=1;
+ ctx.shadowBlur=0;
 
- // Rocket
- if(playing){
-  ctx.font='43px Arial';
-  ctx.textAlign='center';
-  ctx.fillText('🚀',px,py+12);
+ if(roundActive){
+  drawRocket(x,y,time);
  }
+
  animationId=requestAnimationFrame(draw);
 }
+
 draw();
 
 function renderHistory(){
@@ -215,72 +449,88 @@ function renderHistory(){
 }
 
 function finishRound(){
- playing=false;
+ if(!roundActive)return;
+
+ roundActive=false;
  $('start').disabled=false;
  $('cash').disabled=true;
  $('multiplier').classList.add('crashed');
  $('multiplier').textContent='💥 '+crashPoint.toFixed(2)+'x';
- $('status').textContent=cashed?'ROUND COMPLETED':'ROCKET CRASHED!';
+
+ $('status').textContent=cashed?
+  '🎉 YOU WON! ROCKET COMPLETED ITS FLIGHT':
+  '💥 ROCKET CRASHED!';
+
  history.unshift(crashPoint);
  history=history.slice(0,30);
+
  save();
  renderHistory();
  updateBalance();
 }
 
 function startGame(){
- if(playing)return;
+ if(roundActive)return;
+
  bet=Number($('bet').value);
+
  if(!Number.isInteger(bet)||bet<1||bet>balance){
   $('status').textContent='INVALID BET AMOUNT';
   return;
  }
+
  balance-=bet;
  save();
  updateBalance();
 
  mult=1;
  cashed=false;
- playing=true;
+ roundActive=true;
  startTime=performance.now();
 
- // Demo-only random crash result
- crashPoint=Math.max(1,0.98/Math.random());
+ // Local demo round result
+ crashPoint=Math.max(1.05,0.98/Math.random());
 
+ particles=[];
  $('start').disabled=true;
  $('cash').disabled=false;
  $('multiplier').classList.remove('crashed');
+ $('multiplier').textContent='1.00x';
  $('status').textContent='🚀 ROCKET IS FLYING!';
- particles=[];
 
  function tick(now){
-  if(!playing)return;
+  if(!roundActive)return;
+
   const seconds=(now-startTime)/1000;
   mult=Math.exp(seconds*.22);
-  $('multiplier').textContent=mult.toFixed(2)+'x';
 
   if(mult>=crashPoint){
    mult=crashPoint;
+   $('multiplier').textContent=mult.toFixed(2)+'x';
    finishRound();
    return;
   }
+
+  $('multiplier').textContent=mult.toFixed(2)+'x';
   requestAnimationFrame(tick);
  }
  requestAnimationFrame(tick);
 }
 
 function cashOut(){
- if(!playing||cashed)return;
+ if(!roundActive||cashed)return;
+
  cashed=true;
+
  const prize=Math.floor(bet*mult);
  balance+=prize;
- playing=false;
- $('status').textContent='🎉 YOU WON '+prize+' CG!';
- $('start').disabled=false;
+
+ // Important: flight continues after cashout!
  $('cash').disabled=true;
+ $('status').textContent='🎉 YOU WON '+prize+' CG! ROCKET STILL FLYING';
+
  save();
  updateBalance();
- $('multiplier').textContent=mult.toFixed(2)+'x';
 }
 
 updateBalance();
