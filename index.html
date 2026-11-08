@@ -49,6 +49,41 @@ button:disabled{opacity:.38;cursor:not-allowed;box-shadow:none}
 .footer{text-align:center;color:#a58abf;font-size:9px;padding:16px 0 20px;letter-spacing:3px}
 .loading{position:absolute;inset:0;display:grid;place-items:center;color:#e2aaff;background:#090313;z-index:5;font-size:13px;text-align:center;padding:20px}
 @media(max-width:520px){.game{height:clamp(390px,58vh,470px)}.lower{grid-template-columns:1fr}.tools{gap:5px}.iconbtn{width:38px;height:38px}.betpanel{gap:5px;padding:7px}.quick{min-width:43px;padding:12px 8px}.actionrow button{font-size:13px}.wallet{padding:9px}.wallet strong{font-size:15px}.refill-btn{font-size:9px;padding:9px 7px}}
+
+/* MOBILE LAYOUT REPAIR */
+html,body{width:100%;max-width:100%;min-width:0;margin:0;overflow-x:hidden}
+body{min-height:100svh;padding:0 0 14px}
+header{display:block;width:100%;padding:12px 8px 0;font-size:clamp(25px,8vw,36px);line-height:1.12}
+.sub{letter-spacing:2px;font-size:9px;margin:4px 0 10px}
+.topline{width:calc(100% - 20px);max-width:700px;min-width:0;gap:6px;margin:0 auto 10px}
+.wallet{min-width:0;padding:8px 9px;gap:7px}
+.wallet .gem{font-size:21px}
+.wallet strong{font-size:clamp(13px,3.8vw,17px);overflow-wrap:anywhere}
+.tools{min-width:0;gap:4px}
+.iconbtn{width:34px;height:36px;font-size:16px;flex:0 0 34px}
+.refill-btn{padding:9px 6px;font-size:9px;white-space:nowrap}
+.game{display:block;width:calc(100% - 20px);max-width:700px;height:clamp(300px,48svh,430px);min-height:300px;margin:0 auto;border-radius:18px}
+#screen{inset:0;width:100%;height:100%;max-width:100%}
+.multiplier{top:7%;font-size:clamp(34px,11vw,58px)}
+.mode{max-width:calc(100% - 24px);font-size:10px;letter-spacing:.3px;padding:8px 12px;white-space:normal;text-align:center}
+.status{display:block;width:calc(100% - 28px);max-width:700px;min-height:34px;margin:8px auto;text-align:center;line-height:1.4;font-size:12px;overflow-wrap:anywhere}
+.controls{width:calc(100% - 20px);max-width:700px;min-width:0;margin:0 auto}
+.betpanel{width:100%;min-width:0;display:flex;flex-wrap:nowrap;gap:6px;padding:8px;direction:rtl}
+.betbox{min-width:0;flex:1 1 auto;gap:5px}
+.betbox input{display:block;width:100%;min-width:0;max-width:none;flex:1 1 0;font-size:16px;padding:12px 4px}
+.betbox span{flex:0 0 auto}
+button{min-width:0;max-width:100%;padding:11px 9px;font-size:12px;white-space:nowrap}
+.quick{flex:0 0 48px;min-width:0;padding:11px 4px}
+.actionrow{display:flex;width:100%;gap:7px;margin-top:8px}
+.actionrow button{min-width:0;flex:1 1 0;padding:14px 4px;font-size:13px;white-space:normal}
+.lower{width:calc(100% - 20px);max-width:700px;min-width:0;margin:10px auto 0;display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+.panel{min-width:0;width:100%;padding:11px}
+.panel h3{font-size:12px;margin-bottom:8px}
+.history{width:100%;min-width:0;flex-wrap:wrap;overflow:visible;direction:ltr;gap:5px}
+.pill{font-size:11px;padding:6px 8px}
+.info{display:flex;flex-wrap:wrap;gap:5px 12px;justify-content:space-between;font-size:10px;overflow-wrap:anywhere}
+.footer{width:100%;padding:12px 12px 18px;font-size:9px;letter-spacing:1px;line-height:1.6;overflow-wrap:anywhere}
+@media(max-width:380px){.topline{gap:4px}.wallet{padding:7px 6px}.tools{gap:3px}.iconbtn{width:30px;flex-basis:30px}.refill-btn{font-size:8px;padding:8px 4px}.quick{flex-basis:43px}.betpanel{gap:4px;padding:6px}}
 </style>
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}
