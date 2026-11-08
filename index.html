@@ -1,79 +1,227 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#050609">
 <title>CRASH GIFT</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#050609;color:#f5d47a;font-family:Arial,sans-serif;text-align:center;min-height:100vh;overflow-x:hidden}
-header{padding:20px 10px 7px;font-size:30px;font-weight:900;letter-spacing:3px;text-shadow:0 0 18px #d69c36}header span{color:#fff}.sub{font-size:10px;letter-spacing:5px;color:#a78a4c;margin-bottom:18px}
-.wallet{margin:0 auto 14px;width:92%;max-width:520px;border:1px solid #98752d;border-radius:16px;padding:16px;background:linear-gradient(110deg,#211808,#090a0d);display:flex;justify-content:space-between;align-items:center;font-size:14px;box-shadow:0 0 20px #d9a33115}.wallet strong{color:#ffe39a;font-size:17px}
-.game{width:94%;max-width:560px;height:min(66vh,570px);min-height:390px;margin:auto;border:1px solid #8d6929;border-radius:22px;overflow:hidden;position:relative;background:#030817;box-shadow:0 0 35px #e5a52b25,inset 0 0 30px #e4a72a20}#scene{position:absolute;inset:0;width:100%;height:100%;display:block}.multiplier{position:absolute;top:12%;left:0;width:100%;font-size:clamp(42px,12vw,58px);font-weight:900;color:#ffe18b;text-shadow:0 0 25px #ffad21;pointer-events:none;z-index:2}.multiplier.crashed{color:#ff5252;text-shadow:0 0 25px red}
-.status{min-height:32px;margin:14px auto 10px;font-size:14px;color:#e6c875;font-weight:bold;padding:0 10px}.controls{width:94%;max-width:560px;margin:auto}.betrow{display:flex;gap:9px;justify-content:center;align-items:center}input{min-width:0;width:36%;background:#171717;border:1px solid #9b7934;border-radius:12px;padding:15px 5px;color:white;font-size:18px;text-align:center;outline:none}button{border:0;border-radius:12px;padding:16px 18px;font-size:15px;font-weight:900;cursor:pointer;color:#171006;background:linear-gradient(110deg,#a8791d,#ffe08a);box-shadow:0 4px 18px #d5a13b25}button:disabled{opacity:.35;cursor:not-allowed;box-shadow:none}.betrow button{flex:1}.buttons{display:flex;gap:10px;margin-top:12px}.buttons button{flex:1;padding:19px 8px}#cash{background:linear-gradient(110deg,#147b55,#40e4a0);color:#041b12}
-.section{width:94%;max-width:560px;margin:22px auto;background:#111318;border:1px solid #49391e;border-radius:16px;padding:15px}.section h3{margin:0 0 14px;text-align:left;font-size:14px;color:#d8b75f}.history{display:flex;gap:8px;overflow-x:auto;padding-bottom:5px}.pill{padding:9px 13px;border-radius:10px;background:#193b2e;color:#65e7a7;font-weight:bold;white-space:nowrap}.pill.low{background:#402020;color:#ff7777}.pill.mid{background:#3c3017;color:#f4ca68}.info{display:flex;justify-content:space-between;color:#aaa;font-size:12px;margin-top:12px}.footer{color:#66552e;font-size:11px;padding:15px 0 25px;letter-spacing:2px}
+*{box-sizing:border-box}
+body{margin:0;background:#050609;color:#f5d47a;font-family:Arial,sans-serif;text-align:center;min-height:100vh;overflow-x:hidden}
+header{padding:22px 10px 8px;font-size:30px;font-weight:900;letter-spacing:3px;text-shadow:0 0 18px #d69c36}
+header span{color:white}.sub{font-size:10px;letter-spacing:5px;color:#a78a4c;margin-bottom:20px}
+.wallet{margin:0 auto 15px;width:92%;max-width:540px;border:1px solid #98752d;border-radius:16px;padding:17px;background:linear-gradient(110deg,#211808,#090a0d);display:flex;justify-content:space-between;align-items:center;font-size:14px;box-shadow:0 0 20px #d9a33115}
+.wallet strong{color:#ffe39a;font-size:17px}
+.game{width:94%;max-width:540px;height:470px;margin:auto;border:1px solid #8d6929;border-radius:22px;overflow:hidden;position:relative;background:#02040b;box-shadow:0 0 35px #e5a52b25,inset 0 0 30px #e4a72a20}
+#screen{width:100%;height:100%;display:block}
+.multiplier{position:absolute;top:13%;left:0;width:100%;font-size:clamp(38px,11vw,54px);font-weight:900;color:#ffe18b;text-shadow:0 0 25px #ffad21;pointer-events:none;z-index:2;direction:ltr}
+.multiplier.crashed{color:#ff5252;text-shadow:0 0 25px red}
+.status{min-height:32px;margin:15px auto 10px;font-size:14px;color:#e6c875;font-weight:bold;padding:0 10px}
+.controls{width:94%;max-width:540px;margin:auto}.betrow{display:flex;gap:9px;justify-content:center;align-items:center}
+input{min-width:0;width:36%;background:#171717;border:1px solid #9b7934;border-radius:12px;padding:15px 5px;color:white;font-size:18px;text-align:center;outline:none}
+button{border:0;border-radius:12px;padding:16px 18px;font-size:15px;font-weight:900;cursor:pointer;color:#171006;background:linear-gradient(110deg,#a8791d,#ffe08a);box-shadow:0 4px 18px #d5a13b25}
+button:disabled{opacity:.35;cursor:not-allowed;box-shadow:none}.betrow button{flex:1}
+.buttons{display:flex;gap:10px;margin-top:12px}.buttons button{flex:1;padding:19px 8px}
+#cash{background:linear-gradient(110deg,#147b55,#40e4a0);color:#041b12}
+.section{width:94%;max-width:540px;margin:22px auto;background:#111318;border:1px solid #49391e;border-radius:16px;padding:15px}
+.section h3{margin:0 0 14px;text-align:right;font-size:14px;color:#d8b75f}
+.history{display:flex;gap:8px;overflow-x:auto;padding-bottom:5px;direction:ltr}
+.pill{padding:9px 13px;border-radius:10px;background:#193b2e;color:#65e7a7;font-weight:bold;white-space:nowrap}
+.pill.low{background:#402020;color:#ff7777}.pill.mid{background:#3c3017;color:#f4ca68}
+.info{display:flex;justify-content:space-between;color:#aaa;font-size:12px;margin-top:12px}
+.footer{color:#66552e;font-size:11px;padding:15px 0 25px;letter-spacing:2px}
+.loading{position:absolute;inset:0;display:grid;place-items:center;color:#e8c978;background:#050609;z-index:5;font-size:13px}
+@media(max-width:380px){.game{height:420px}.wallet{font-size:12px}.wallet strong{font-size:15px}}
 </style>
 </head>
 <body>
-<header>🚀 <span>CRASH</span> GIFT</header><div class="sub">PLAY • FLY • WIN</div>
+<header>🚀 <span>CRASH</span> GIFT</header>
+<div class="sub">PLAY • FLY • WIN</div>
 <div class="wallet"><span>💎 VIRTUAL BALANCE</span><strong id="balance">1,000 CG</strong></div>
-<div class="game"><canvas id="scene"></canvas><div class="multiplier" id="multiplier">1.00x</div></div>
+<div class="game">
+ <canvas id="screen"></canvas>
+ <div class="multiplier" id="multiplier">1.00x</div>
+ <div class="loading" id="loading">در حال بارگذاری موتور سه‌بعدی…</div>
+</div>
 <div class="status" id="status">READY FOR TAKEOFF?</div>
-<div class="controls"><div class="betrow"><input id="bet" type="number" min="1" step="1" value="50"><button onclick="setBet(100)">100</button><button onclick="setBet(500)">500</button></div><div class="buttons"><button id="start" onclick="startGame()">🚀 START</button><button id="cash" onclick="cashOut()" disabled>💎 CASH OUT</button></div></div>
-<div class="section"><h3>📈 RECENT MULTIPLIERS</h3><div class="history" id="history"><span style="color:#777">No rounds yet</span></div><div class="info"><span>CRASH GIFT</span><span>VIRTUAL GAME</span></div></div>
-<div class="footer">CRASH GIFT • VIRTUAL POINTS ONLY</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script>
+<div class="controls">
+ <div class="betrow">
+  <input id="bet" type="number" min="1" step="1" value="50">
+  <button onclick="setBet(100)">100</button><button onclick="setBet(500)">500</button>
+ </div>
+ <div class="buttons"><button id="start" onclick="startGame()">🚀 START</button><button id="cash" onclick="cashOut()" disabled>💎 CASH OUT</button></div>
+</div>
+<div class="section">
+ <h3>📈 RECENT MULTIPLIERS</h3><div class="history" id="history"><span style="color:#777">No rounds yet</span></div>
+ <div class="info"><span>CRASH GIFT</span><span>VIRTUAL GAME</span></div>
+</div>
+<div class="footer">CRASH GIFT • PLAY BEYOND LIMITS</div>
+
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+
 const $=id=>document.getElementById(id);
+const canvas=$('screen');
 let balance=Number(localStorage.getItem('cg_balance')||1000);
-let history=[];try{history=JSON.parse(localStorage.getItem('cg_history')||'[]');if(!Array.isArray(history))history=[]}catch(e){history=[]}
-let roundActive=false,cashed=false,bet=0,mult=1,crashPoint=0,startTime=0,rocket,flame,renderer,scene,camera,earth,planet,stars,trail,explosion=null;
-function save(){localStorage.setItem('cg_balance',balance);localStorage.setItem('cg_history',JSON.stringify(history))}
+let history=JSON.parse(localStorage.getItem('cg_history')||'[]');
+let phase='idle',cashed=false,bet=0,mult=1,crashPoint=0,roundStart=0,crashStart=0,prize=0;
+let renderer,scene,camera,rocket,rocketGroup,flame,flameLight,earth,planet,starField,trail;
+let smoke=[],embers=[],explosion=[],clock=new THREE.Clock();
+const v=(x,y,z)=>new THREE.Vector3(x,y,z);
+
+function save(){localStorage.setItem('cg_balance',String(balance));localStorage.setItem('cg_history',JSON.stringify(history))}
 function updateBalance(){$('balance').textContent=balance.toLocaleString()+' CG'}
-function setBet(n){$('bet').value=n}
-function mat(color,metalness=0,roughness=.5,emissive=0){return new THREE.MeshStandardMaterial({color,metalness,roughness,emissive:color,emissiveIntensity:emissive})}
-function makeRocket(){
- const g=new THREE.Group();
- const body=new THREE.Mesh(new THREE.CylinderGeometry(.28,.34,1.55,24),mat(0xd9e0eb,.8,.23,.08));g.add(body);
- const nose=new THREE.Mesh(new THREE.ConeGeometry(.29,.72,24),mat(0xffc75a,.65,.2,.25));nose.position.y=1.12;g.add(nose);
- const windowMesh=new THREE.Mesh(new THREE.SphereGeometry(.16,20,16),new THREE.MeshPhysicalMaterial({color:0x39bfff,metalness:.35,roughness:.12,emissive:0x087acb,emissiveIntensity:.65}));windowMesh.position.set(0,.38,.265);windowMesh.scale.set(1,1,.35);g.add(windowMesh);
- const finMat=mat(0xb77b28,.65,.28,.2);
- for(const side of [-1,1]){const fin=new THREE.Mesh(new THREE.BoxGeometry(.13,.55,.42),finMat);fin.position.set(side*.29,-.48,0);fin.rotation.z=side*.35;g.add(fin)}
- flame=new THREE.Mesh(new THREE.ConeGeometry(.24,1.05,20),new THREE.MeshBasicMaterial({color:0xff8b22,transparent:true,opacity:.9}));flame.position.y=-1.12;flame.rotation.z=Math.PI;g.add(flame);
- const inner=new THREE.Mesh(new THREE.ConeGeometry(.12,.72,16),new THREE.MeshBasicMaterial({color:0xffefad,transparent:true,opacity:.95}));inner.position.y=-1.12;inner.rotation.z=Math.PI;g.add(inner);
- g.rotation.z=-.68;g.scale.setScalar(.78);scene.add(g);return g;
+window.setBet=n=>{$('bet').value=n};
+
+function makeMat(color,metalness=0,roughness=.5,emissive=0x000000,intensity=0){
+ return new THREE.MeshStandardMaterial({color,metalness,roughness,emissive,emissiveIntensity:intensity});
 }
-function init3D(){
- if(!window.THREE){$('status').textContent='3D ENGINE COULD NOT LOAD — CHECK INTERNET';return}
- const canvas=$('scene');scene=new THREE.Scene();scene.background=new THREE.Color(0x030817);scene.fog=new THREE.FogExp2(0x050b1c,.018);
- camera=new THREE.PerspectiveCamera(48,1,.1,100);camera.position.set(0,0,16);
- renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.5));renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;
- scene.add(new THREE.AmbientLight(0x8ba8d8,.75));const sun=new THREE.DirectionalLight(0xffd79a,2.1);sun.position.set(-5,7,9);scene.add(sun);const blue=new THREE.PointLight(0x347bff,2.2,35);blue.position.set(5,1,5);scene.add(blue);
- // Earth-like planet and atmospheric rim
- earth=new THREE.Mesh(new THREE.SphereGeometry(7.1,48,40),new THREE.MeshStandardMaterial({color:0x163d70,roughness:.9,metalness:.05}));earth.position.set(0,-9.1,-5);scene.add(earth);
- const atmo=new THREE.Mesh(new THREE.SphereGeometry(7.22,48,40),new THREE.MeshBasicMaterial({color:0x398cff,transparent:true,opacity:.13,side:THREE.BackSide}));atmo.position.copy(earth.position);scene.add(atmo);
- // A distant ringed planet
- planet=new THREE.Group();const sphere=new THREE.Mesh(new THREE.SphereGeometry(1.25,40,32),new THREE.MeshStandardMaterial({color:0x536b9a,roughness:.42,metalness:.25}));planet.add(sphere);
- const ring=new THREE.Mesh(new THREE.TorusGeometry(1.8,.045,8,100),new THREE.MeshStandardMaterial({color:0xc49b59,metalness:.7,roughness:.3,emissive:0x5a3710,emissiveIntensity:.35}));ring.rotation.x=1.18;planet.add(ring);planet.position.set(4.2,2.2,-2.5);scene.add(planet);
- // Star field
- const positions=[];for(let i=0;i<650;i++){positions.push((Math.random()-.5)*34,(Math.random()-.5)*23,-Math.random()*18-2)}const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));stars=new THREE.Points(geo,new THREE.PointsMaterial({color:0xffffff,size:.055,transparent:true,opacity:.9}));scene.add(stars);
- // Flight path
- const points=[];for(let i=0;i<=60;i++){const t=i/60;points.push(new THREE.Vector3(-5+t*10,-4+t*7.1,-.5))}const pathGeo=new THREE.BufferGeometry().setFromPoints(points);trail=new THREE.Line(pathGeo,new THREE.LineBasicMaterial({color:0xffc65a,transparent:true,opacity:.45}));scene.add(trail);
- rocket=makeRocket();resize3D();window.addEventListener('resize',resize3D);animate3D();
+function createRocket(){
+ rocketGroup=new THREE.Group();
+ const silver=makeMat(0xcbd4e3,.82,.24),gold=makeMat(0xd9a33e,.8,.22,0x7a4300,.25),dark=makeMat(0x101b2d,.65,.22),glass=new THREE.MeshPhysicalMaterial({color:0x37bfff,metalness:.35,roughness:.08,transparent:true,opacity:.9,clearcoat:1,emissive:0x0873b5,emissiveIntensity:.6});
+ const body=new THREE.Mesh(new THREE.CylinderGeometry(.34,.42,2.7,32,1,false),silver);body.rotation.z=-Math.PI/2;rocketGroup.add(body);
+ const nose=new THREE.Mesh(new THREE.ConeGeometry(.34,.9,32),gold);nose.rotation.z=-Math.PI/2;nose.position.x=1.78;rocketGroup.add(nose);
+ const tail=new THREE.Mesh(new THREE.CylinderGeometry(.43,.34,.28,32),dark);tail.rotation.z=-Math.PI/2;tail.position.x=-1.43;rocketGroup.add(tail);
+ const windowMesh=new THREE.Mesh(new THREE.SphereGeometry(.24,24,16),glass);windowMesh.scale.set(.45,1,1);windowMesh.position.set(.48,.18,.34);rocketGroup.add(windowMesh);
+ for(const side of [-1,1]){
+  const fin=new THREE.Mesh(new THREE.ShapeGeometry((()=>{const s=new THREE.Shape();s.moveTo(-.8,0);s.lineTo(-1.55,side*.9);s.lineTo(-.35,side*.28);s.closePath();return s})()),gold);
+  fin.position.z=side*.18;rocketGroup.add(fin);
+ }
+ const nozzle=new THREE.Mesh(new THREE.CylinderGeometry(.28,.42,.48,24),makeMat(0x303847,.75,.3));nozzle.rotation.z=-Math.PI/2;nozzle.position.x=-1.78;rocketGroup.add(nozzle);
+ flame=new THREE.Mesh(new THREE.ConeGeometry(.31,2.4,24,1,true),new THREE.MeshBasicMaterial({color:0xff8b1c,transparent:true,opacity:.88,side:THREE.DoubleSide}));
+ flame.rotation.z=Math.PI/2;flame.position.x=-3.05;rocketGroup.add(flame);
+ const inner=new THREE.Mesh(new THREE.ConeGeometry(.16,1.55,20,1,true),new THREE.MeshBasicMaterial({color:0xfff2ae,transparent:true,opacity:.95,side:THREE.DoubleSide}));
+ inner.rotation.z=Math.PI/2;inner.position.x=-2.72;rocketGroup.add(inner);
+ flameLight=new THREE.PointLight(0xff8b28,4,13);flameLight.position.x=-2.6;rocketGroup.add(flameLight);
+ rocketGroup.scale.setScalar(.82);scene.add(rocketGroup);
 }
-function resize3D(){if(!renderer||!camera)return;const box=$('scene').getBoundingClientRect();renderer.setSize(box.width,box.height,false);camera.aspect=box.width/box.height;camera.updateProjectionMatrix()}
-function rocketPosition(p){return new THREE.Vector3(-5+p*10,-4+p*7.1,0)}
-function animate3D(){requestAnimationFrame(animate3D);if(!renderer)return;const t=performance.now()*.001;
- if(planet)planet.rotation.y=t*.08;if(earth)earth.rotation.y=t*.015;if(stars)stars.rotation.z=Math.sin(t*.04)*.012;
- if(rocket){let p=roundActive?Math.min((mult-1)/8,1):0;const pos=rocketPosition(p);rocket.position.copy(pos);rocket.rotation.z=-.68+Math.sin(t*5)*.025;if(flame){flame.scale.set(1,.75+Math.random()*.55,1);flame.material.opacity=.72+Math.random()*.25}rocket.visible=roundActive||mult>1}
- if(explosion){explosion.rotation.y+=.025;explosion.scale.multiplyScalar(1.018);explosion.material.opacity=Math.max(0,explosion.material.opacity-.012);if(explosion.material.opacity<=0){scene.remove(explosion);explosion.geometry.dispose();explosion.material.dispose();explosion=null}}
- renderer.render(scene,camera)}
-function burst(){if(!scene||!rocket)return;const count=90,arr=[];const pos=rocket.position.clone();for(let i=0;i<count;i++)arr.push(pos.x+(Math.random()-.5)*1.4,pos.y+(Math.random()-.5)*1.4,pos.z+(Math.random()-.5)*1.4);const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(arr,3));const m=new THREE.PointsMaterial({color:0xffa52e,size:.13,transparent:true,opacity:1});explosion=new THREE.Points(g,m);scene.add(explosion)}
-function renderHistory(){$('history').innerHTML='';if(!history.length){$('history').innerHTML='<span style="color:#777">No rounds yet</span>';return}history.slice(0,15).forEach(n=>{const el=document.createElement('span');el.className='pill '+(n<2?'low':n<5?'mid':'');el.textContent=Number(n).toFixed(2)+'x';$('history').appendChild(el)})}
-function finishRound(){if(!roundActive)return;roundActive=false;$('start').disabled=false;$('cash').disabled=true;$('multiplier').classList.add('crashed');$('multiplier').textContent='💥 '+crashPoint.toFixed(2)+'x';$('status').textContent=cashed?'🎉 WIN SECURED — FLIGHT COMPLETE':'💥 ROCKET CRASHED!';burst();history.unshift(crashPoint);history=history.slice(0,30);save();renderHistory();updateBalance()}
-function startGame(){if(roundActive)return;bet=Number($('bet').value);if(!Number.isInteger(bet)||bet<1||bet>balance){$('status').textContent='INVALID BET AMOUNT';return}if(!renderer){$('status').textContent='3D ENGINE IS NOT READY';return}balance-=bet;save();updateBalance();mult=1;cashed=false;roundActive=true;startTime=performance.now();crashPoint=Math.max(1.05,.98/Math.random());$('start').disabled=true;$('cash').disabled=false;$('multiplier').classList.remove('crashed');$('multiplier').textContent='1.00x';$('status').textContent='🚀 ROCKET IS FLYING!';function tick(now){if(!roundActive)return;const seconds=(now-startTime)/1000;mult=Math.exp(seconds*.22);if(mult>=crashPoint){mult=crashPoint;$('multiplier').textContent=mult.toFixed(2)+'x';finishRound();return}$('multiplier').textContent=mult.toFixed(2)+'x';requestAnimationFrame(tick)}requestAnimationFrame(tick)}
-function cashOut(){if(!roundActive||cashed)return;cashed=true;const prize=Math.floor(bet*mult);balance+=prize;$('cash').disabled=true;$('status').textContent='🎉 YOU WON '+prize+' CG! ROCKET STILL FLYING';save();updateBalance()}
-updateBalance();renderHistory();init3D();
+function createWorld(){
+ scene=new THREE.Scene();scene.background=new THREE.Color(0x030611);scene.fog=new THREE.FogExp2(0x050918,.006);
+ camera=new THREE.PerspectiveCamera(48,1,.1,1500);camera.position.set(0,5,24);
+ renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'high-performance'});
+ renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.7));renderer.outputColorSpace=THREE.SRGBColorSpace;
+ renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.28;
+ scene.add(new THREE.HemisphereLight(0x9bbcff,0x17101b,1.5));
+ const key=new THREE.DirectionalLight(0xffe2ad,3.1);key.position.set(8,12,10);scene.add(key);
+ const rim=new THREE.PointLight(0x368cff,85,90);rim.position.set(-12,2,-8);scene.add(rim);
+ const goldLight=new THREE.PointLight(0xffb94e,35,45);goldLight.position.set(4,-3,8);scene.add(goldLight);
+
+ // Earth-like planet and illuminated atmosphere
+ earth=new THREE.Group();earth.position.set(-13,-11,-28);scene.add(earth);
+ const earthMesh=new THREE.Mesh(new THREE.SphereGeometry(12,64,48),new THREE.MeshStandardMaterial({color:0x174c82,roughness:.82,metalness:.05}));
+ earth.add(earthMesh);
+ const cloud=new THREE.Mesh(new THREE.SphereGeometry(12.12,48,32),new THREE.MeshBasicMaterial({color:0x7cbcff,transparent:true,opacity:.09,side:THREE.BackSide}));earth.add(cloud);
+ const atmo=new THREE.Mesh(new THREE.SphereGeometry(12.45,48,32),new THREE.MeshBasicMaterial({color:0x368cff,transparent:true,opacity:.13,side:THREE.BackSide}));earth.add(atmo);
+ const landMat=new THREE.MeshStandardMaterial({color:0x3c916e,roughness:1});
+ for(let i=0;i<18;i++){const patch=new THREE.Mesh(new THREE.SphereGeometry(1.1+Math.random()*2.1,12,8),landMat);patch.position.set((Math.random()-.5)*9,(Math.random()-.5)*8,10.8+Math.random()*1.1);patch.scale.y=.5;earth.add(patch)}
+ planet=new THREE.Group();planet.position.set(14,7,-38);scene.add(planet);
+ const pmat=new THREE.MeshStandardMaterial({color:0x9274a8,roughness:.8,metalness:.1});
+ const p=new THREE.Mesh(new THREE.SphereGeometry(5,48,36),pmat);planet.add(p);
+ const ring=new THREE.Mesh(new THREE.TorusGeometry(7,.12,8,100),new THREE.MeshStandardMaterial({color:0xd5ae76,metalness:.7,roughness:.28,emissive:0x5b3518,emissiveIntensity:.35}));
+ ring.rotation.x=1.25;ring.rotation.y=.25;planet.add(ring);
+ // star points
+ const count=1800,positions=new Float32Array(count*3),sizes=new Float32Array(count);
+ for(let i=0;i<count;i++){positions[i*3]=(Math.random()-.5)*260;positions[i*3+1]=(Math.random()-.5)*150;positions[i*3+2]=-Math.random()*180-15;sizes[i]=Math.random()}
+ const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(positions,3));starField=new THREE.Points(geo,new THREE.PointsMaterial({color:0xdde8ff,size:.19,sizeAttenuation:true,transparent:true,opacity:.9}));scene.add(starField);
+ // subtle gold flight ribbon
+ const points=[];for(let i=0;i<80;i++)points.push(v(-32+i*.75,-7+Math.sin(i*.08)*2.2,-1));
+ const curve=new THREE.CatmullRomCurve3(points);trail=new THREE.Mesh(new THREE.TubeGeometry(curve,160,.045,8,false),new THREE.MeshBasicMaterial({color:0xd89d3a,transparent:true,opacity:.45}));scene.add(trail);
+ createRocket();
+}
+function resize(){
+ if(!renderer)return;const r=canvas.getBoundingClientRect();renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.updateProjectionMatrix();
+}
+window.addEventListener('resize',resize);
+
+function addParticles(list,pos,color,n,spread,speed,size){
+ for(let i=0;i<n;i++){
+  const m=new THREE.Mesh(new THREE.SphereGeometry(size*(.45+Math.random()),8,6),new THREE.MeshBasicMaterial({color,transparent:true,opacity:.8}));
+  m.position.copy(pos).add(v((Math.random()-.5)*spread,(Math.random()-.5)*spread,(Math.random()-.5)*spread));scene.add(m);
+  list.push({mesh:m,vel:v((Math.random()-.5)*speed,(Math.random()-.5)*speed,(Math.random()-.5)*speed),life:1});
+ }
+}
+function updateParticles(list,dt,fade=.8){
+ for(let i=list.length-1;i>=0;i--){const p=list[i];p.mesh.position.addScaledVector(p.vel,dt);p.vel.y-=dt*.7;p.life-=dt*fade;p.mesh.scale.multiplyScalar(1+dt*.4);p.mesh.material.opacity=Math.max(0,p.life*.8);if(p.life<=0){scene.remove(p.mesh);p.mesh.geometry.dispose();p.mesh.material.dispose();list.splice(i,1)}}
+}
+function flightPosition(){
+ // World-space path keeps the rocket in front of the camera; camera follows its motion smoothly.
+ const t=phase==='flight'?Math.max(0,mult-1):Math.max(0,mult-1);
+ const distance=Math.log(1+t*1.9)*5.5;
+ return v(-2+distance, -1+distance*.43+Math.sin(performance.now()*.0018)*.22, 0);
+}
+function setCameraTarget(pos,dt){
+ const desired=v(pos.x-1.5,pos.y+4.4,24);
+ camera.position.lerp(desired,1-Math.exp(-dt*2.5));
+ const look=v(pos.x+2,pos.y+.5,-7);camera.lookAt(look);
+}
+function beginCrash(){
+ if(phase!=='flight')return;
+ phase='crash';crashStart=performance.now();$('cash').disabled=true;
+ $('status').textContent=cashed?'🎉 جایزه ثبت شد؛ سقوط موشک را تماشا کن!':'💥 موشک در حال سقوط است!';
+ $('multiplier').classList.add('crashed');$('multiplier').textContent='💥 '+crashPoint.toFixed(2)+'x';
+}
+function completeRound(){
+ phase='idle';$('start').disabled=false;$('cash').disabled=true;
+ $('status').textContent=cashed?'🎉 برنده شدی! دور بعد آماده است':'💥 موشک سقوط کرد؛ دور بعد آماده است';
+ history.unshift(crashPoint);history=history.slice(0,30);save();renderHistory();updateBalance();
+}
+function animate(){
+ requestAnimationFrame(animate);const dt=Math.min(clock.getDelta(),.04),now=performance.now();
+ if(phase==='flight'){
+  const seconds=(now-roundStart)/1000;mult=Math.exp(seconds*.22);
+  if(mult>=crashPoint){mult=crashPoint;beginCrash()}
+  else $('multiplier').textContent=mult.toFixed(2)+'x';
+ }
+ if(phase==='crash'){
+  const elapsed=(now-crashStart)/1000;
+  rocketGroup.rotation.z=-.12-elapsed*1.4;rocketGroup.rotation.x=Math.sin(elapsed*9)*.12;
+  rocketGroup.position.y-=dt*(2.5+elapsed*5);rocketGroup.position.x+=dt*1.3;
+  if(Math.random()<.8)addParticles(smoke,rocketGroup.position,0x6d7180,2,1.4,1.1,.18);
+  if(elapsed>.42&&explosion.length===0)addParticles(explosion,rocketGroup.position,0xff9b32,90,3,7,.16);
+  if(elapsed>2.7)completeRound();
+ }else if(phase==='flight'){
+  const pos=flightPosition();rocketGroup.position.lerp(pos,1-Math.exp(-dt*5));
+  rocketGroup.rotation.z=-.12+Math.sin(now*.002)*.025;
+  rocketGroup.rotation.x=Math.sin(now*.0014)*.035;
+  flame.scale.set(1,.78+Math.random()*.42, .78+Math.random()*.42);
+  flameLight.intensity=3.2+Math.random()*2.2;
+  if(Math.random()<.72)addParticles(embers,rocketGroup.position.clone().add(v(-2.5,0,0)),0xffa02d,2,1.1,2,.055);
+ }else{
+  rocketGroup.rotation.z=-.12;rocketGroup.position.lerp(v(-2,-1,0),.035);
+  flameLight.intensity=0;
+ }
+ setCameraTarget(rocketGroup.position,dt);
+ earth.rotation.y+=dt*.018;planet.rotation.y+=dt*.025;starField.rotation.y+=dt*.0008;
+ updateParticles(embers,dt,1.4);updateParticles(smoke,dt,.36);updateParticles(explosion,dt,.95);
+ renderer.render(scene,camera);
+}
+function renderHistory(){
+ $('history').innerHTML='';
+ if(!history.length){$('history').innerHTML='<span style="color:#777">No rounds yet</span>';return}
+ history.slice(0,15).forEach(n=>{const el=document.createElement('span');el.className='pill '+(n<2?'low':n<5?'mid':'');el.textContent=n.toFixed(2)+'x';$('history').appendChild(el)});
+}
+window.startGame=function(){
+ if(phase!=='idle')return;
+ bet=Number($('bet').value);
+ if(!Number.isInteger(bet)||bet<1||bet>balance){$('status').textContent='INVALID BET AMOUNT';return}
+ balance-=bet;save();updateBalance();mult=1;cashed=false;prize=0;
+ crashPoint=Math.max(1.05,.98/Math.random());roundStart=performance.now();phase='flight';
+ rocketGroup.position.set(-2,-1,0);rocketGroup.rotation.set(0,0,-.12);
+ $('start').disabled=true;$('cash').disabled=false;$('multiplier').classList.remove('crashed');
+ $('multiplier').textContent='1.00x';$('status').textContent='🚀 موشک در حال پرواز است!';
+};
+window.cashOut=function(){
+ if(phase!=='flight'||cashed)return;
+ cashed=true;prize=Math.floor(bet*mult);balance+=prize;
+ $('cash').disabled=true;$('status').textContent='🎉 '+prize.toLocaleString()+' CG دریافت کردی؛ پرواز ادامه دارد!';
+ save();updateBalance();
+};
+try{
+ createWorld();resize();$('loading').style.display='none';animate();
+}catch(e){
+ console.error(e);$('loading').textContent='موتور سه‌بعدی بارگذاری نشد؛ اتصال اینترنت را بررسی کن.';
+}
+updateBalance();renderHistory();
 </script>
 </body>
 </html>
