@@ -176,7 +176,7 @@ function animate(){
   const pulse=1+Math.sin(now*.008)*.035+Math.min(sec*.012,.12);orb.scale.setScalar(pulse);orb.rotation.y+=dt*.85;orb.rotation.x+=dt*.28;orbRings.forEach(r=>{r.mesh.rotation.z+=dt*r.speed});
   orbLight.intensity=10+Math.sin(now*.009)*2+Math.min(sec,8)*.35;if(Math.random()<.9)spawnParticles(orb.position.clone().add(V(0,-.88,0)),2);
   $('mode').textContent='✦ NEON ENERGY • '+(sec<2?'IGNITION':sec<5?'ACCELERATING':'MAXIMUM ASCENT');
-  const camY=orb.position.y+2.55;camera.position.y+=(camY-camera.position.y)*(1-Math.exp(-dt*2.6));camera.lookAt(0,camera.position.y,0);updateTrail();
+const camY=CAMERA_IDLE+travel*.35;camera.position.y+=(camY-camera.position.y)*(1-Math.exp(-dt*2.6));camera.lookAt(0,camera.position.y,0);updateTrail();
  }else if(phase==='crash'){
   const e=(now-crashStart)/1000;orb.scale.setScalar(Math.max(.001,1-e*.5));orbLight.intensity=Math.max(0,10-e*6);orbRings.forEach(r=>{r.mesh.scale.multiplyScalar(1+dt*.6);r.mesh.material.opacity=Math.max(0,1-e*.5)});
   if(Math.random()<.9)spawnParticles(orb.position,4);if(e>1.8){orb.visible=false;completeRound()}
