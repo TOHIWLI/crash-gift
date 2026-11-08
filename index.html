@@ -76,55 +76,96 @@ window.setBet=n=>{$('bet').value=n};
 function makeMat(color,metalness=0,roughness=.5,emissive=0x000000,intensity=0){
  return new THREE.MeshStandardMaterial({color,metalness,roughness,emissive,emissiveIntensity:intensity});
 }
+
+/* NEON HOLLOW ROCKET: wireframe-style shell with open center */
 function createRocket(){
  rocketGroup=new THREE.Group();
- const bodyMat=new THREE.MeshStandardMaterial({color:0x111820,metalness:.72,roughness:.22,emissive:0x06111c,emissiveIntensity:.5});
+
  const cyan=new THREE.MeshBasicMaterial({color:0x39f5ff});
+ const cyanSoft=new THREE.MeshBasicMaterial({color:0x13bfe9,transparent:true,opacity:.78});
  const pink=new THREE.MeshBasicMaterial({color:0xff38d9});
  const violet=new THREE.MeshBasicMaterial({color:0xb74dff});
  const gold=new THREE.MeshBasicMaterial({color:0xffe52e});
- const glass=new THREE.MeshPhysicalMaterial({color:0x087f99,metalness:.45,roughness:.08,clearcoat:1,emissive:0x00c9e8,emissiveIntensity:1.15});
- // Slim upright fuselage, rounded nose and dark central shell.
- const core=new THREE.Mesh(new THREE.CylinderGeometry(.48,.58,2.15,24,1),bodyMat);
- core.position.y=.05;rocketGroup.add(core);
- const nose=new THREE.Mesh(new THREE.ConeGeometry(.48,.82,24),bodyMat);
- nose.position.y=1.52;rocketGroup.add(nose);
- const noseOutline=new THREE.Mesh(new THREE.TorusGeometry(.48,.035,8,40),cyan);
- noseOutline.position.y=1.15;rocketGroup.add(noseOutline);
- const lowerRing=new THREE.Mesh(new THREE.TorusGeometry(.54,.035,8,40),pink);
- lowerRing.position.y=-.82;rocketGroup.add(lowerRing);
- // Glowing cockpit windows.
- const cockpit=new THREE.Mesh(new THREE.SphereGeometry(.34,24,16),glass);
- cockpit.scale.set(1,.75,.22);cockpit.position.set(0,.48,.49);rocketGroup.add(cockpit);
- const cockpitFrame=new THREE.Mesh(new THREE.TorusGeometry(.36,.035,8,40),cyan);
- cockpitFrame.position.set(0,.48,.5);cockpitFrame.scale.set(1,.82,1);rocketGroup.add(cockpitFrame);
- const smallWindow=new THREE.Mesh(new THREE.SphereGeometry(.2,20,12),glass);
- smallWindow.scale.set(1,.62,.18);smallWindow.position.set(0,-.35,.51);rocketGroup.add(smallWindow);
- const smallFrame=new THREE.Mesh(new THREE.TorusGeometry(.22,.027,8,32),cyan);
- smallFrame.position.set(0,-.35,.52);smallFrame.scale.set(1,.72,1);rocketGroup.add(smallFrame);
- // Side fins with neon edges.
- for(const side of [-1,1]){
-  const finShape=new THREE.Shape();
-  finShape.moveTo(0,0);finShape.lineTo(side*.58,-.82);finShape.lineTo(side*.35,-.92);finShape.lineTo(side*.12,-.45);finShape.closePath();
-  const fin=new THREE.Mesh(new THREE.ShapeGeometry(finShape),bodyMat);
-  fin.position.set(0,-.58,.03);rocketGroup.add(fin);
-  const edgePts=[v(0,-.58,.08),v(side*.58,-1.4,.08),v(side*.35,-1.5,.08),v(side*.12,-1.03,.08),v(0,-.58,.08)];
-  const edge=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(edgePts),32,.025,8,false),pink);rocketGroup.add(edge);
+ const glass=new THREE.MeshPhysicalMaterial({color:0x087f99,metalness:.25,roughness:.08,clearcoat:1,emissive:0x00c9e8,emissiveIntensity:1.15,transparent:true,opacity:.88});
+
+ // Fine structural rails: the middle stays visibly open.
+ const railPoints=[
+  [v(-.43,-.92,0),v(-.43,.86,0),v(0,1.88,0)],
+  [v(.43,-.92,0),v(.43,.86,0),v(0,1.88,0)],
+  [v(-.43,-.92,0),v(0,-1.02,0),v(.43,-.92,0)],
+  [v(-.43,.86,0),v(0,1.02,.02),v(.43,.86,0)],
+  [v(-.43,.35,0),v(0,.48,.03),v(.43,.35,0)],
+  [v(-.43,-.38,0),v(0,-.27,.03),v(.43,-.38,0)]
+ ];
+ railPoints.forEach((pts,i)=>{
+  const curve=new THREE.CatmullRomCurve3(pts);
+  const tube=new THREE.Mesh(new THREE.TubeGeometry(curve,32,i<4?.035:.024,8,false),i%2?pink:cyan);
+  rocketGroup.add(tube);
+ });
+
+ // Open nose outline and skeletal nose ribs.
+ const noseBase=new THREE.Mesh(new THREE.TorusGeometry(.44,.035,8,48),violet);
+ noseBase.position.y=.88;rocketGroup.add(noseBase);
+ const noseTip=v(0,1.92,0);
+ for(let i=0;i<8;i++){
+  const a=i*Math.PI/4;
+  const p1=v(Math.cos(a)*.44,.88,Math.sin(a)*.18);
+  const curve=new THREE.LineCurve3(p1,noseTip);
+  rocketGroup.add(new THREE.Mesh(new THREE.TubeGeometry(curve,12,.018,6,false),i%2?pink:cyan));
  }
- // Tiny gold engine details and a layered neon exhaust.
- const engine=new THREE.Mesh(new THREE.CylinderGeometry(.25,.34,.32,24),bodyMat);
- engine.position.y=-1.18;rocketGroup.add(engine);
- const engineRing=new THREE.Mesh(new THREE.TorusGeometry(.3,.035,8,32),gold);
- engineRing.position.y=-1.32;rocketGroup.add(engineRing);
- flame=new THREE.Mesh(new THREE.ConeGeometry(.27,1.25,24,1,true),new THREE.MeshBasicMaterial({color:0xffe52e,transparent:true,opacity:.82,side:THREE.DoubleSide}));
- flame.rotation.z=Math.PI;flame.position.y=-1.95;rocketGroup.add(flame);
- const inner=new THREE.Mesh(new THREE.ConeGeometry(.13,.82,20,1,true),new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.9,side:THREE.DoubleSide}));
- inner.rotation.z=Math.PI;inner.position.y=-1.78;rocketGroup.add(inner);
- flameLight=new THREE.PointLight(0xffd52e,3.5,8);flameLight.position.y=-1.7;rocketGroup.add(flameLight);
- // Neon halo around the whole craft.
- const halo=new THREE.Mesh(new THREE.TorusGeometry(.83,.018,8,64),new THREE.MeshBasicMaterial({color:0xb344ff,transparent:true,opacity:.7}));
- halo.position.z=-.12;rocketGroup.add(halo);
- rocketGroup.scale.setScalar(.92);scene.add(rocketGroup);
+ const noseCross=new THREE.Mesh(new THREE.TorusGeometry(.22,.018,6,40),cyanSoft);
+ noseCross.position.y=1.27;noseCross.scale.set(1,.55,1);rocketGroup.add(noseCross);
+
+ // Neon cockpit: a compact luminous window, not a solid fuselage.
+ const cockpit=new THREE.Mesh(new THREE.SphereGeometry(.31,24,16),glass);
+ cockpit.scale.set(1,.76,.25);cockpit.position.set(0,.43,.27);rocketGroup.add(cockpit);
+ const cockpitFrame=new THREE.Mesh(new THREE.TorusGeometry(.34,.026,8,40),cyan);
+ cockpitFrame.position.set(0,.43,.29);cockpitFrame.scale.set(1,.8,1);rocketGroup.add(cockpitFrame);
+ const smallWindow=new THREE.Mesh(new THREE.SphereGeometry(.16,20,12),glass);
+ smallWindow.scale.set(1,.62,.2);smallWindow.position.set(0,-.32,.27);rocketGroup.add(smallWindow);
+ const smallFrame=new THREE.Mesh(new THREE.TorusGeometry(.19,.022,8,32),pink);
+ smallFrame.position.set(0,-.32,.29);smallFrame.scale.set(1,.72,1);rocketGroup.add(smallFrame);
+
+ // Hollow side fins made only from luminous outlines.
+ for(const side of [-1,1]){
+  const finPts=[
+   v(side*.37,-.48,.02),
+   v(side*.91,-1.12,.02),
+   v(side*.58,-1.26,.02),
+   v(side*.25,-.88,.02),
+   v(side*.37,-.48,.02)
+  ];
+  const finCurve=new THREE.CatmullRomCurve3(finPts);
+  rocketGroup.add(new THREE.Mesh(new THREE.TubeGeometry(finCurve,40,.028,8,false),pink));
+  const innerFin=new THREE.LineCurve3(v(side*.37,-.58,.04),v(side*.68,-1.12,.04));
+  rocketGroup.add(new THREE.Mesh(new THREE.TubeGeometry(innerFin,12,.016,6,false),cyan));
+ }
+
+ // Engine ring and three thin engine struts; center remains hollow.
+ const engineRing=new THREE.Mesh(new THREE.TorusGeometry(.29,.035,8,40),gold);
+ engineRing.position.y=-1.05;rocketGroup.add(engineRing);
+ for(let i=0;i<3;i++){
+  const a=i*Math.PI*2/3;
+  const p1=v(Math.cos(a)*.18,-.83,Math.sin(a)*.12);
+  const p2=v(Math.cos(a)*.29,-1.05,Math.sin(a)*.12);
+  rocketGroup.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.LineCurve3(p1,p2),10,.018,6,false),cyan));
+ }
+
+ // Layered neon exhaust.
+ flame=new THREE.Mesh(new THREE.ConeGeometry(.25,1.28,24,1,true),new THREE.MeshBasicMaterial({color:0xffe52e,transparent:true,opacity:.78,side:THREE.DoubleSide}));
+ flame.rotation.z=Math.PI;flame.position.y=-1.72;rocketGroup.add(flame);
+ const inner=new THREE.Mesh(new THREE.ConeGeometry(.12,.88,20,1,true),new THREE.MeshBasicMaterial({color:0x39f5ff,transparent:true,opacity:.9,side:THREE.DoubleSide}));
+ inner.rotation.z=Math.PI;inner.position.y=-1.57;rocketGroup.add(inner);
+ flameLight=new THREE.PointLight(0xff4bd8,3.5,8);flameLight.position.y=-1.5;rocketGroup.add(flameLight);
+
+ // Two offset neon orbit rings give the craft a distinctive silhouette.
+ const halo=new THREE.Mesh(new THREE.TorusGeometry(.78,.018,8,64),violet);
+ halo.position.z=-.14;halo.rotation.y=.25;rocketGroup.add(halo);
+ const halo2=new THREE.Mesh(new THREE.TorusGeometry(.66,.012,8,64),cyanSoft);
+ halo2.position.z=-.2;halo2.rotation.y=-.3;rocketGroup.add(halo2);
+
+ rocketGroup.scale.setScalar(1.48);
+ scene.add(rocketGroup);
 }
 function createWorld(){
  scene=new THREE.Scene();scene.background=new THREE.Color(0x101010);
@@ -136,12 +177,10 @@ function createWorld(){
  const key=new THREE.PointLight(0x9d4cff,32,38);key.position.set(2,6,9);scene.add(key);
  const cyanLight=new THREE.PointLight(0x00dfff,22,30);cyanLight.position.set(-5,2,5);scene.add(cyanLight);
  const pinkLight=new THREE.PointLight(0xff28cf,18,25);pinkLight.position.set(5,-2,5);scene.add(pinkLight);
- // Sparse, soft stars and drifting colored particles.
  const count=650,positions=new Float32Array(count*3);
  for(let i=0;i<count;i++){positions[i*3]=(Math.random()-.5)*95;positions[i*3+1]=(Math.random()-.5)*65;positions[i*3+2]=-Math.random()*75-8}
  const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(positions,3));
  starField=new THREE.Points(geo,new THREE.PointsMaterial({color:0xd8d2e6,size:.11,sizeAttenuation:true,transparent:true,opacity:.72}));scene.add(starField);
- // The signature golden flight ribbon: layered tubes create a soft neon bloom.
  const pts=[v(-31,-7,-2),v(-23,-7,-2),v(-15,-7,-2),v(-8,-6.7,-2),v(-3,-5.5,-2),v(0,-2.8,-2),v(2,1.5,-2),v(4,7,-2),v(6,14,-2),v(8,22,-2),v(10,31,-2)];
  const curve=new THREE.CatmullRomCurve3(pts);
  const glow=new THREE.Mesh(new THREE.TubeGeometry(curve,180,.38,12,false),new THREE.MeshBasicMaterial({color:0xffe000,transparent:true,opacity:.12}));
@@ -204,7 +243,7 @@ function animate(){
   const pos=flightPosition();rocketGroup.position.lerp(pos,1-Math.exp(-dt*5));
   rocketGroup.rotation.z=-.28+Math.sin(now*.002)*.018;
   rocketGroup.rotation.x=Math.sin(now*.0014)*.025;
-  flame.scale.set(1,.78+Math.random()*.42, .78+Math.random()*.42);
+  flame.scale.set(1,.78+Math.random()*.42,.78+Math.random()*.42);
   flameLight.intensity=3.2+Math.random()*2.2;
   if(Math.random()<.72)addParticles(embers,rocketGroup.position.clone().add(v(-2.5,0,0)),0x39f5ff,2,1.1,2,.055);
  }else{
