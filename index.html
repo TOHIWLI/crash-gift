@@ -78,14 +78,34 @@ function makeMat(color,metalness=0,roughness=.5,emissive=0x000000,intensity=0){
 }
 function createRocket(){
  rocketGroup=new THREE.Group();
- const silver=makeMat(0xcbd4e3,.82,.24),gold=makeMat(0xd9a33e,.8,.22,0x7a4300,.25),dark=makeMat(0x101b2d,.65,.22),glass=new THREE.MeshPhysicalMaterial({color:0x37bfff,metalness:.35,roughness:.08,transparent:true,opacity:.9,clearcoat:1,emissive:0x0873b5,emissiveIntensity:.6});
- const body=new THREE.Mesh(new THREE.CylinderGeometry(.34,.42,2.7,32,1,false),silver);body.rotation.z=-Math.PI/2;rocketGroup.add(body);
- const nose=new THREE.Mesh(new THREE.ConeGeometry(.34,.9,32),gold);nose.rotation.z=-Math.PI/2;nose.position.x=1.78;rocketGroup.add(nose);
+ const silver=makeMat(0x242a31,.92,.2,0x090d12,.12),gold=makeMat(0xb88732,.88,.2,0x6f4310,.32),dark=makeMat(0x080c12,.82,.24),glass=new THREE.MeshPhysicalMaterial({color:0x142b3a,metalness:.7,roughness:.09,transparent:true,opacity:.96,clearcoat:1,clearcoatRoughness:.05,emissive:0x06263b,emissiveIntensity:.45});
+ // Armored central fuselage: dark titanium, segmented plating and gold trim.
+ const body=new THREE.Mesh(new THREE.CylinderGeometry(.43,.52,3.25,12,1,false),silver);body.rotation.z=-Math.PI/2;rocketGroup.add(body);
+ const armor=new THREE.Mesh(new THREE.CylinderGeometry(.455,.535,1.45,12,1,false),dark);armor.rotation.z=-Math.PI/2;armor.position.x=-.18;rocketGroup.add(armor);
+ for(const x of [-1.05,-.55,.05,.62,1.05]){
+  const band=new THREE.Mesh(new THREE.TorusGeometry(.445,.035,8,24),gold);band.rotation.y=Math.PI/2;band.position.x=x;rocketGroup.add(band);
+ }
+ // Raised dorsal spine and paired armor rails.
+ const spine=new THREE.Mesh(new THREE.BoxGeometry(2.2,.12,.18),gold);spine.position.set(-.05,.43,0);rocketGroup.add(spine);
+ for(const z of [-.39,.39]){
+  const rail=new THREE.Mesh(new THREE.BoxGeometry(2.45,.075,.075),dark);rail.position.set(-.08,.12,z);rocketGroup.add(rail);
+ }
+ const nose=new THREE.Mesh(new THREE.ConeGeometry(.43,1.18,12),gold);nose.rotation.z=-Math.PI/2;nose.position.x=2.18;rocketGroup.add(nose);
+ const noseTip=new THREE.Mesh(new THREE.SphereGeometry(.105,12,8),makeMat(0xffd98b,.7,.18,0xffa52c,.8));noseTip.position.x=2.78;rocketGroup.add(noseTip);
  const tail=new THREE.Mesh(new THREE.CylinderGeometry(.43,.34,.28,32),dark);tail.rotation.z=-Math.PI/2;tail.position.x=-1.43;rocketGroup.add(tail);
- const windowMesh=new THREE.Mesh(new THREE.SphereGeometry(.24,24,16),glass);windowMesh.scale.set(.45,1,1);windowMesh.position.set(.48,.18,.34);rocketGroup.add(windowMesh);
+ // Narrow cockpit slit and side sensor lenses.
+ const windowMesh=new THREE.Mesh(new THREE.BoxGeometry(.62,.13,.52),glass);windowMesh.position.set(.72,.27,.02);rocketGroup.add(windowMesh);
+ for(const z of [-.48,.48]){
+  const sensor=new THREE.Mesh(new THREE.SphereGeometry(.105,16,12),new THREE.MeshStandardMaterial({color:0x55c9e8,metalness:.35,roughness:.12,emissive:0x087caa,emissiveIntensity:1.2}));
+  sensor.position.set(.1,.08,z);rocketGroup.add(sensor);
+ }
  for(const side of [-1,1]){
-  const fin=new THREE.Mesh(new THREE.ShapeGeometry((()=>{const s=new THREE.Shape();s.moveTo(-.8,0);s.lineTo(-1.55,side*.9);s.lineTo(-.35,side*.28);s.closePath();return s})()),gold);
-  fin.position.z=side*.18;rocketGroup.add(fin);
+  const wing=new THREE.Mesh(new THREE.BoxGeometry(1.35,.12,.92),dark);
+  wing.position.set(-.72,-.18,side*.62);wing.rotation.y=side*.16;rocketGroup.add(wing);
+  const wingEdge=new THREE.Mesh(new THREE.BoxGeometry(1.12,.045,.07),gold);
+  wingEdge.position.set(-.78,-.105,side*1.02);rocketGroup.add(wingEdge);
+  const fin=new THREE.Mesh(new THREE.BoxGeometry(.72,.48,.12),gold);
+  fin.position.set(-1.18,-.28,side*.38);fin.rotation.z=.22;rocketGroup.add(fin);
  }
  const nozzle=new THREE.Mesh(new THREE.CylinderGeometry(.28,.42,.48,24),makeMat(0x303847,.75,.3));nozzle.rotation.z=-Math.PI/2;nozzle.position.x=-1.78;rocketGroup.add(nozzle);
  flame=new THREE.Mesh(new THREE.ConeGeometry(.31,2.4,24,1,true),new THREE.MeshBasicMaterial({color:0xff8b1c,transparent:true,opacity:.88,side:THREE.DoubleSide}));
@@ -100,9 +120,9 @@ function createWorld(){
  camera=new THREE.PerspectiveCamera(48,1,.1,1500);camera.position.set(0,5,24);
  renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'high-performance'});
  renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.7));renderer.outputColorSpace=THREE.SRGBColorSpace;
- renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.28;
- scene.add(new THREE.HemisphereLight(0x9bbcff,0x17101b,1.5));
- const key=new THREE.DirectionalLight(0xffe2ad,3.1);key.position.set(8,12,10);scene.add(key);
+ renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.12;
+ scene.add(new THREE.HemisphereLight(0x7185a8,0x09070b,1.05));
+ const key=new THREE.DirectionalLight(0xffd28a,4.2);key.position.set(8,12,10);scene.add(key);
  const rim=new THREE.PointLight(0x368cff,85,90);rim.position.set(-12,2,-8);scene.add(rim);
  const goldLight=new THREE.PointLight(0xffb94e,35,45);goldLight.position.set(4,-3,8);scene.add(goldLight);
 
