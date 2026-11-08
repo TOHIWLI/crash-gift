@@ -50,6 +50,17 @@ button:disabled{opacity:.38;cursor:not-allowed;box-shadow:none}
 .footer{text-align:center;color:#a58abf;font-size:9px;padding:16px 0 20px;letter-spacing:3px}
 .loading{position:absolute;inset:0;display:grid;place-items:center;color:#e2aaff;background:#090313;z-index:5;font-size:13px;text-align:center;padding:20px}
 @media(max-width:520px){.game{height:clamp(390px,58vh,470px)}.lower{grid-template-columns:1fr}.tools{gap:5px}.iconbtn{width:38px;height:38px}.betpanel{gap:5px;padding:7px}.quick{min-width:43px;padding:12px 8px}.actionrow button{font-size:13px}.wallet{padding:9px}.wallet strong{font-size:15px}}
+.refill-btn{
+  background:linear-gradient(135deg,#ffd36b,#a95aff);
+  color:#160923;
+  border:1px solid #fff0b0;
+  padding:10px 9px;
+  border-radius:12px;
+  font-size:10px;
+  font-weight:1000;
+  white-space:nowrap;
+  box-shadow:0 0 15px #bd55ff88;
+}
 </style>
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}
@@ -58,7 +69,8 @@ button:disabled{opacity:.38;cursor:not-allowed;box-shadow:none}
 <body>
 <header><span class="crown">♛</span><span>CRASH</span> GIFT</header>
 <div class="sub">P L A Y&nbsp; • &nbsp;F L Y&nbsp; • &nbsp;W I N</div>
-<div class="topline">
+<button class="refill-btn" onclick="freeRefill()">＋ FREE REFILL</button>
+ <div class="topline">
  <div class="wallet"><span class="gem">💎</span><div><small>VIRTUAL BALANCE</small><strong id="balance">1,000 CG</strong></div></div>
  <div class="tools"><div class="iconbtn">🏆</div><div class="iconbtn">▥</div><div class="iconbtn">⚙</div></div>
 </div>
@@ -96,6 +108,12 @@ const ORB_START=-5.25, CAMERA_IDLE=-2.7;
 function save(){localStorage.setItem('cg_balance',String(balance));localStorage.setItem('cg_history',JSON.stringify(history))}
 function updateBalance(){$('balance').textContent=balance.toLocaleString()+' CG'}
 window.setBet=n=>$('bet').value=n;
+ window.freeRefill=function(){
+  balance+=100000;
+  save();
+  updateBalance();
+  $('status').textContent='✦ 100,000 FREE CG ADDED!';
+};
 function physical(color,metalness=.35,roughness=.18,emissive=0x000000,intensity=0){return new THREE.MeshPhysicalMaterial({color,metalness,roughness,clearcoat:1,clearcoatRoughness:.04,emissive,emissiveIntensity:intensity})}
 function glowTexture(){const c=document.createElement('canvas');c.width=c.height=256;const x=c.getContext('2d'),g=x.createRadialGradient(128,128,3,128,128,126);g.addColorStop(0,'rgba(255,255,255,1)');g.addColorStop(.12,'rgba(226,190,255,.95)');g.addColorStop(.28,'rgba(171,66,255,.48)');g.addColorStop(.58,'rgba(105,35,255,.16)');g.addColorStop(1,'rgba(80,20,255,0)');x.fillStyle=g;x.fillRect(0,0,256,256);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;return t}
 function sprite(parent,size,opacity=1,tint=0xffffff){const m=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTexture(),color:tint,transparent:true,opacity,blending:THREE.AdditiveBlending,depthWrite:false}));m.scale.set(size,size,1);parent.add(m);return m}
