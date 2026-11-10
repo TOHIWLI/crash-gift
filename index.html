@@ -1,230 +1,266 @@
+
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="theme-color" content="#080313">
 <title>CRASH GIFT</title>
-<style>
-:root{--violet:#a52cff;--pink:#f04cff;--gold:#ffd36b;--cyan:#42dcff}
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;background:#05020c;color:#fff;font-family:Arial,sans-serif;overflow-x:hidden}
-body:before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse at 50% 38%,#37105f 0,#16082d 38%,#070311 75%,#020107 100%)}
-body:after{content:"";position:fixed;inset:0;z-index:-1;opacity:.36;background-image:radial-gradient(2px 2px at 12% 18%,#fff 50%,transparent 60%),radial-gradient(1px 1px at 70% 12%,#d9aaff 50%,transparent 60%),radial-gradient(2px 2px at 83% 73%,#fff 50%,transparent 60%),radial-gradient(1px 1px at 32% 83%,#e7b7ff 50%,transparent 60%),radial-gradient(1px 1px at 57% 56%,#fff 50%,transparent 60%);background-size:230px 190px,270px 220px,310px 260px,190px 210px,250px 240px}
-header{padding:15px 10px 0;text-align:center;font-size:clamp(26px,6vw,38px);font-weight:1000;letter-spacing:2px;color:#fff;text-shadow:0 0 7px #fff,0 0 18px #a52cff,0 0 35px #7c20ff}
-header span{background:linear-gradient(#fff6cb,#ffd45d 45%,#a65b16);background-clip:text;color:transparent;-webkit-background-clip:text}
-.crown{display:block;font-size:20px;color:var(--gold);filter:drop-shadow(0 0 9px #ffbb38);line-height:1}
-.sub{font-size:10px;letter-spacing:5px;color:#d5aaff;margin:3px 0 14px;text-shadow:0 0 12px #a52cff}
-.topline{width:94%;max-width:700px;margin:0 auto 10px;display:flex;justify-content:space-between;gap:8px;align-items:center}
-.wallet,.iconbtn,.panel{background:linear-gradient(145deg,rgba(20,12,39,.96),rgba(5,4,15,.94));border:1px solid #9c54ff;border-radius:16px;box-shadow:0 0 12px #8b31ff55,inset 0 0 15px #8b31ff18}
-.wallet{padding:10px 14px;display:flex;gap:12px;align-items:center;min-width:0;flex:1;border-color:#e9b74e}
-.wallet .gem{font-size:25px;filter:drop-shadow(0 0 8px #36dfff)}
-.wallet small{display:block;font-size:9px;color:#c9b9dd;letter-spacing:1px}
-.wallet strong{display:block;color:#ffe08a;font-size:17px;margin-top:3px;text-shadow:0 0 10px #ffbd43}
-.tools{display:flex;gap:7px;align-items:center}.iconbtn{width:43px;height:43px;color:#ffdc7b;font-size:20px;border-color:#b66aff;display:grid;place-items:center}
-.refill-btn{background:linear-gradient(135deg,#ffd36b,#a95aff);color:#160923;border:1px solid #fff0b0;padding:10px 9px;border-radius:12px;font-size:10px;font-weight:1000;white-space:nowrap;box-shadow:0 0 15px #bd55ff88}
-.game{position:relative;width:96%;max-width:700px;height:clamp(390px,66vh,570px);margin:0 auto;border-radius:22px;overflow:hidden;border:1px solid #8f43ec;background:radial-gradient(ellipse at 50% 60%,#40106b 0,#17072d 48%,#06020e 100%);box-shadow:0 0 28px #8c2aff55,inset 0 0 45px #7b20ff30}
-.game:before{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;background:linear-gradient(180deg,rgba(3,1,12,.12),transparent 48%,rgba(5,1,15,.32)}
-#screen{position:absolute;inset:0;width:100%;height:100%;display:block}
-.multiplier{position:absolute;top:7%;left:0;width:100%;text-align:center;font-size:clamp(36px,10vw,68px);font-weight:1000;color:#fff;text-shadow:0 0 8px #fff,0 0 20px #c34cff,0 0 42px #8c21ff;pointer-events:none;z-index:3;direction:ltr}
-.multiplier.crashed{color:#ff657d;text-shadow:0 0 25px red}
-.mode{position:absolute;z-index:3;bottom:13px;left:50%;transform:translateX(-50%);white-space:nowrap;max-width:90%;padding:9px 18px;border-radius:30px;border:1px solid #c36aff;background:rgba(10,4,24,.8);box-shadow:0 0 18px #9d32ff77;color:#fff;font-size:11px;font-weight:900;letter-spacing:1px}
-.status{width:96%;max-width:700px;min-height:32px;margin:9px auto;text-align:center;color:#e7c9ff;font-size:12px;font-weight:bold;text-shadow:0 0 12px #a52cff}
-.controls{width:96%;max-width:700px;margin:0 auto}
-.betpanel{display:flex;gap:8px;align-items:center;padding:10px;border:1px solid #8c45d7;border-radius:18px;background:linear-gradient(100deg,#0c0718f2,#1a0931f2);box-shadow:0 0 18px #8a2bff44}
-.betbox{display:flex;align-items:center;gap:5px;min-width:0;flex:1}
-input{width:70px;min-width:0;flex:1;background:#080510;border:1px solid #a76aff;border-radius:12px;padding:13px 5px;color:#fff;font-size:18px;text-align:center;outline:none;box-shadow:inset 0 0 12px #9a36ff22}
-button{border:1px solid #c17aff;border-radius:12px;padding:12px 13px;font-size:13px;font-weight:900;cursor:pointer;color:white;background:linear-gradient(130deg,#7421bd,#bd37ff);box-shadow:0 0 14px #9b36ff44}
-button:disabled{opacity:.38;cursor:not-allowed;box-shadow:none}
-.quick{background:#170c2b;color:#ffdc80;border-color:#c28b3c;min-width:53px}
-.actionrow{display:flex;gap:9px;margin-top:9px}.actionrow button{flex:1;padding:17px 7px;font-size:15px}
-#start{background:linear-gradient(110deg,#7c20e8,#d52dff);border:1px solid #e8baff;box-shadow:0 0 18px #a52cff88,inset 0 0 12px #fff3}
-#cash{background:linear-gradient(110deg,#064e91,#087fce);border:1px solid #68dfff;box-shadow:0 0 18px #13aaff66}
-.lower{width:96%;max-width:700px;margin:13px auto 0;display:grid;grid-template-columns:1fr 1.6fr;gap:9px}
-.panel{padding:12px;border-color:#8950bd;min-width:0}.panel h3{margin:0 0 10px;text-align:right;font-size:11px;color:#e8d8ff;letter-spacing:.6px}
-.history{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;direction:ltr}
-.pill{padding:7px 10px;border-radius:10px;background:#123c34;color:#72f4b4;font-weight:bold;white-space:nowrap;border:1px solid #278c68;font-size:12px}
-.pill.low{background:#42192b;color:#ff829b;border-color:#a63c61}.pill.mid{background:#3c2c12;color:#ffda79;border-color:#a47a31}
-.info{display:flex;justify-content:space-between;color:#b8a8cc;font-size:10px;margin-top:10px}
-.footer{text-align:center;color:#a58abf;font-size:9px;padding:16px 0 20px;letter-spacing:3px}
-.loading{position:absolute;inset:0;display:grid;place-items:center;color:#e2aaff;background:#090313;z-index:5;font-size:13px;text-align:center;padding:20px}
-@media(max-width:520px){.game{height:clamp(390px,58vh,470px)}.lower{grid-template-columns:1fr}.tools{gap:5px}.iconbtn{width:38px;height:38px}.betpanel{gap:5px;padding:7px}.quick{min-width:43px;padding:12px 8px}.actionrow button{font-size:13px}.wallet{padding:9px}.wallet strong{font-size:15px}.refill-btn{font-size:9px;padding:9px 7px}}
 
-/* MOBILE LAYOUT REPAIR */
-html,body{width:100%;max-width:100%;min-width:0;margin:0;overflow-x:hidden}
-body{min-height:100svh;padding:0 0 14px}
-header{display:block;width:100%;padding:12px 8px 0;font-size:clamp(25px,8vw,36px);line-height:1.12}
-.sub{letter-spacing:2px;font-size:9px;margin:4px 0 10px}
-.topline{width:calc(100% - 20px);max-width:700px;min-width:0;gap:6px;margin:0 auto 10px}
-.wallet{min-width:0;padding:8px 9px;gap:7px}
-.wallet .gem{font-size:21px}
-.wallet strong{font-size:clamp(13px,3.8vw,17px);overflow-wrap:anywhere}
-.tools{min-width:0;gap:4px}
-.iconbtn{width:34px;height:36px;font-size:16px;flex:0 0 34px}
-.refill-btn{padding:9px 6px;font-size:9px;white-space:nowrap}
-.game{display:block;width:calc(100% - 20px);max-width:700px;height:clamp(300px,48svh,430px);min-height:300px;margin:0 auto;border-radius:18px}
-#screen{inset:0;width:100%;height:100%;max-width:100%}
-.multiplier{top:7%;font-size:clamp(34px,11vw,58px)}
-.mode{max-width:calc(100% - 24px);font-size:10px;letter-spacing:.3px;padding:8px 12px;white-space:normal;text-align:center}
-.status{display:block;width:calc(100% - 28px);max-width:700px;min-height:34px;margin:8px auto;text-align:center;line-height:1.4;font-size:12px;overflow-wrap:anywhere}
-.controls{width:calc(100% - 20px);max-width:700px;min-width:0;margin:0 auto}
-.betpanel{width:100%;min-width:0;display:flex;flex-wrap:nowrap;gap:6px;padding:8px;direction:rtl}
-.betbox{min-width:0;flex:1 1 auto;gap:5px}
-.betbox input{display:block;width:100%;min-width:0;max-width:none;flex:1 1 0;font-size:16px;padding:12px 4px}
-.betbox span{flex:0 0 auto}
-button{min-width:0;max-width:100%;padding:11px 9px;font-size:12px;white-space:nowrap}
-.quick{flex:0 0 48px;min-width:0;padding:11px 4px}
-.actionrow{display:flex;width:100%;gap:7px;margin-top:8px}
-.actionrow button{min-width:0;flex:1 1 0;padding:14px 4px;font-size:13px;white-space:normal}
-.lower{width:calc(100% - 20px);max-width:700px;min-width:0;margin:10px auto 0;display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
-.panel{min-width:0;width:100%;padding:11px}
-.panel h3{font-size:12px;margin-bottom:8px}
-.history{width:100%;min-width:0;flex-wrap:wrap;overflow:visible;direction:ltr;gap:5px}
-.pill{font-size:11px;padding:6px 8px}
-.info{display:flex;flex-wrap:wrap;gap:5px 12px;justify-content:space-between;font-size:10px;overflow-wrap:anywhere}
-.footer{width:100%;padding:12px 12px 18px;font-size:9px;letter-spacing:1px;line-height:1.6;overflow-wrap:anywhere}
-@media(max-width:380px){.topline{gap:4px}.wallet{padding:7px 6px}.tools{gap:3px}.iconbtn{width:30px;flex-basis:30px}.refill-btn{font-size:8px;padding:8px 4px}.quick{flex-basis:43px}.betpanel{gap:4px;padding:6px}}
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #080313;
+  color: white;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  padding: 14px;
+}
+
+.app {
+  max-width: 480px;
+  margin: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 4px 25px;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #ffd36b;
+}
+
+.online {
+  color: #42e89b;
+  font-size: 12px;
+}
+
+.balance {
+  background: linear-gradient(135deg,#24133f,#100a20);
+  border: 1px solid #7442a0;
+  border-radius: 18px;
+  padding: 19px;
+  margin-bottom: 15px;
+}
+
+.balance-label {
+  color: #bca9d4;
+  font-size: 12px;
+}
+
+.balance-value {
+  font-size: 27px;
+  font-weight: bold;
+  margin-top: 8px;
+  color: #ffd36b;
+}
+
+.game {
+  background: radial-gradient(circle at center,#32125a,#130a25 65%,#090413);
+  border: 1px solid #7735a5;
+  border-radius: 22px;
+  height: 330px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.multiplier {
+  font-size: 55px;
+  font-weight: 900;
+  color: #ffd36b;
+  text-shadow: 0 0 25px #a52cff;
+}
+
+.game-status {
+  color: #c7b5dc;
+  margin-top: 12px;
+  font-size: 13px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  background: #ffd36b;
+  border-radius: 50%;
+  box-shadow: 0 0 20px #ffd36b;
+  position: absolute;
+  bottom: 35px;
+}
+
+.section {
+  background: #160d25;
+  border: 1px solid #35204d;
+  border-radius: 17px;
+  padding: 17px;
+  margin-top: 15px;
+}
+
+.section-title {
+  font-size: 14px;
+  color: #d7c2ed;
+  margin-bottom: 15px;
+}
+
+.bet-input {
+  width: 100%;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid #63408b;
+  background: #090513;
+  color: white;
+  font-size: 18px;
+  outline: none;
+  text-align: center;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+button {
+  border: 0;
+  border-radius: 12px;
+  padding: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.control {
+  flex: 1;
+  background: #302044;
+  color: white;
+}
+
+.bet-button {
+  width: 100%;
+  margin-top: 12px;
+  background: linear-gradient(90deg,#a52cff,#f04cff);
+  color: white;
+  font-size: 16px;
+}
+
+.footer {
+  text-align: center;
+  color: #806c98;
+  font-size: 11px;
+  padding: 22px 0;
+}
 </style>
-<script type="importmap">
-{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}
-</script>
 </head>
+
 <body>
-<header><span class="crown">♛</span><span>CRASH</span> GIFT</header>
-<div class="sub">P L A Y&nbsp; • &nbsp;F L Y&nbsp; • &nbsp;W I N</div>
-<div class="topline">
- <div class="wallet"><span class="gem">💎</span><div><small>VIRTUAL BALANCE</small><strong id="balance">1,000 CG</strong></div></div>
- <div class="tools">
-  <button class="refill-btn" onclick="freeRefill()">＋ FREE REFILL</button>
-  <div class="iconbtn">🏆</div><div class="iconbtn">▥</div><div class="iconbtn">⚙</div>
- </div>
+<div class="app">
+
+  <header class="header">
+    <div class="logo">CRASH GIFT</div>
+    <div class="online">● ONLINE</div>
+  </header>
+
+  <section class="balance">
+    <div class="balance-label">YOUR DEMO BALANCE</div>
+    <div class="balance-value">
+      <span id="balance">100.0000</span> GRAM
+    </div>
+  </section>
+
+  <section class="game">
+    <div class="multiplier" id="multiplier">1.00x</div>
+    <div class="game-status" id="status">WAITING FOR NEXT ROUND</div>
+    <div class="dot"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">PLACE YOUR BET</div>
+
+    <input
+      class="bet-input"
+      id="bet"
+      type="number"
+      min="0.1"
+      step="0.1"
+      value="1"
+    >
+
+    <div class="controls">
+      <button class="control" onclick="changeBet(2)">×2</button>
+      <button class="control" onclick="changeBet(0.5)">÷2</button>
+    </div>
+
+    <button class="bet-button" onclick="placeDemoBet()">
+      PLACE DEMO BET
+    </button>
+  </section>
+
+  <section class="section">
+    <div class="section-title">ROUND HISTORY</div>
+    <div id="history">No completed rounds</div>
+  </section>
+
+  <footer class="footer">
+    CRASH GIFT · DEMO VERSION
+  </footer>
+
 </div>
-<div class="game">
- <canvas id="screen"></canvas>
- <div class="multiplier" id="multiplier">1.00x</div>
- <div class="mode" id="mode">✦ ENERGY BEAM • READY</div>
- <div class="loading" id="loading">در حال بارگذاری فضای سه‌بعدی…</div>
-</div>
-<div class="status" id="status">READY TO ASCEND?</div>
-<div class="controls">
- <div class="betpanel">
-  <div class="betbox"><span>🪙</span><input id="bet" type="number" min="1" step="1" value="50"></div>
-  <button class="quick" onclick="setBet(100)">100</button><button class="quick" onclick="setBet(500)">500</button>
- </div>
- <div class="actionrow"><button id="start" onclick="startGame()">✦ START</button><button id="cash" onclick="cashOut()" disabled>✧ CASH OUT</button></div>
-</div>
-<div class="lower">
- <div class="panel"><h3>📈 RECENT MULTIPLIERS</h3><div class="history" id="history"><span style="color:#9b88b3">No rounds yet</span></div></div>
- <div class="panel"><h3>✦ ENERGY STATUS</h3><div class="info"><span>CRASH GIFT</span><span>VIRTUAL GAME</span></div><div class="info"><span>SPACE ARENA</span><span>PLAY BEYOND LIMITS</span></div></div>
-</div>
-<div class="footer">✦ CRASH GIFT • PLAY BEYOND LIMITS ✦</div>
-<script type="module">
-import * as THREE from 'three';
-const $=id=>document.getElementById(id),canvas=$('screen');
-let balance=Number(localStorage.getItem('cg_balance')||1000),history=[];
-try{history=JSON.parse(localStorage.getItem('cg_history')||'[]');if(!Array.isArray(history))history=[]}catch(e){history=[]}
-let phase='idle',cashed=false,bet=0,mult=1,crashPoint=0,roundStart=0,crashStart=0,prize=0;
-let renderer,scene,camera,platform,beam,beamCore,beamAura,beamTop,planet,station,clock=new THREE.Clock(),twinkles=[],particles=[],rings=[],beamLights=[];
-const BASE_Y=-5.35, CAMERA_Y=-.15;
-function save(){localStorage.setItem('cg_balance',String(balance));localStorage.setItem('cg_history',JSON.stringify(history))}
-function updateBalance(){$('balance').textContent=balance.toLocaleString()+' CG'}
-window.setBet=n=>$('bet').value=n;
-window.freeRefill=function(){balance+=100000;save();updateBalance();$('status').textContent='✦ 100,000 FREE CG ADDED!'};
-function mat(color,opacity=1,transparent=false){return new THREE.MeshBasicMaterial({color,transparent,opacity,depthWrite:!transparent,blending:transparent?THREE.AdditiveBlending:THREE.NormalBlending,side:THREE.DoubleSide})}
-function makePlatform(){
- const g=new THREE.Group();
- const base=new THREE.Mesh(new THREE.CylinderGeometry(1.8,2.15,.3,96),new THREE.MeshStandardMaterial({color:0x17112d,metalness:.8,roughness:.24,emissive:0x35106c,emissiveIntensity:.5}));base.position.y=-.18;g.add(base);
- const top=new THREE.Mesh(new THREE.CylinderGeometry(1.52,1.8,.09,96),new THREE.MeshStandardMaterial({color:0x292044,metalness:.75,roughness:.2,emissive:0x5120a9,emissiveIntensity:.55}));g.add(top);
- for(let i=0;i<4;i++){const r=new THREE.Mesh(new THREE.TorusGeometry(1.12+i*.22,.018,8,128),mat([0x9c43ff,0x42dfff,0xe9aaff,0xff55df][i],.9,true));r.rotation.x=Math.PI/2;r.position.y=.07+i*.012;g.add(r);rings.push({mesh:r,speed:.25+i*.13})}
- const bolts=new THREE.Group();for(let i=0;i<12;i++){const a=i*Math.PI/6;const b=new THREE.Mesh(new THREE.SphereGeometry(.035,12,8),mat(0x75dfff));b.position.set(Math.cos(a)*1.48,.08,Math.sin(a)*1.48);bolts.add(b)}g.add(bolts);
- g.position.set(0,BASE_Y,0);scene.add(g);return g;
+
+<script>
+const tg = window.Telegram?.WebApp;
+
+if (tg) {
+  tg.ready();
+  tg.expand();
 }
-function makeBeam(){
- const g=new THREE.Group();g.position.set(0,BASE_Y+.12,0);scene.add(g);
- // Beam parts are built at unit height; scaling Y grows the light upward from the platform.
- beamCore=new THREE.Mesh(new THREE.CylinderGeometry(.075,.13,1,32,1,true),mat(0xffffff,.96,true));beamCore.position.y=.5;g.add(beamCore);
- const inner=new THREE.Mesh(new THREE.CylinderGeometry(.18,.28,1,32,1,true),mat(0x9e42ff,.72,true));inner.position.y=.5;g.add(inner);
- beam=new THREE.Mesh(new THREE.CylinderGeometry(.38,.62,1,32,1,true),mat(0x9d35ff,.22,true));beam.position.y=.5;g.add(beam);
- beamAura=new THREE.Mesh(new THREE.CylinderGeometry(.72,1.05,1,32,1,true),mat(0x6d35ff,.11,true));beamAura.position.y=.5;g.add(beamAura);
- beamTop=new THREE.Group();beamTop.position.y=1;g.add(beamTop);
- const cap=new THREE.Mesh(new THREE.SphereGeometry(.24,24,16),mat(0xffffff,.9,true));cap.scale.set(1,.45,1);beamTop.add(cap);
- const capGlow=new THREE.Mesh(new THREE.SphereGeometry(.48,24,16),mat(0x9c45ff,.2,true));capGlow.scale.set(1,.5,1);beamTop.add(capGlow);
- const halo=new THREE.Mesh(new THREE.TorusGeometry(.42,.025,8,64),mat(0x65eaff,.9,true));halo.rotation.x=Math.PI/2;beamTop.add(halo);
- const light=new THREE.PointLight(0xa43cff,5,13);light.position.y=.5;g.add(light);beamLights.push(light);
- const light2=new THREE.PointLight(0x38cfff,2.5,8);light2.position.set(.25,.5,.3);g.add(light2);beamLights.push(light2);
- g.scale.y=.04;g.visible=true;
- return g;
+
+let balance = 100;
+let history = [];
+
+function changeBet(multiplier) {
+  const input = document.getElementById("bet");
+  let value = Number(input.value) || 0.1;
+
+  value *= multiplier;
+  value = Math.max(0.1, Math.min(balance, value));
+
+  input.value = Number(value.toFixed(4));
 }
-function createSpace(){
- scene=new THREE.Scene();scene.background=new THREE.Color(0x07020f);scene.fog=new THREE.FogExp2(0x090318,.006);
- camera=new THREE.PerspectiveCamera(48,1,.1,250);camera.position.set(0,CAMERA_Y,22);camera.lookAt(0,CAMERA_Y,0);
- renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'high-performance'});
- renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.5));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.35;
- scene.add(new THREE.HemisphereLight(0xd9c7ff,0x10051e,1.6));
- const key=new THREE.PointLight(0xb34cff,32,55);key.position.set(0,5,8);scene.add(key);
- const blue=new THREE.PointLight(0x266dff,20,38);blue.position.set(-7,-2,5);scene.add(blue);
- const pink=new THREE.PointLight(0xff45d6,15,30);pink.position.set(7,2,4);scene.add(pink);
- const starGeo=new THREE.BufferGeometry(),arr=new Float32Array(1100*3);
- for(let i=0;i<1100;i++){arr[i*3]=(Math.random()-.5)*90;arr[i*3+1]=(Math.random()-.5)*75;arr[i*3+2]=-Math.random()*70-8}
- starGeo.setAttribute('position',new THREE.BufferAttribute(arr,3));scene.add(new THREE.Points(starGeo,new THREE.PointsMaterial({color:0xe9dfff,size:.12,transparent:true,opacity:.9})));
- for(let i=0;i<75;i++){const s=new THREE.Mesh(new THREE.OctahedronGeometry(.025+Math.random()*.04),mat(i%4?0xffffff:0xd88bff,.75,true));s.position.set((Math.random()-.5)*32,(Math.random()-.5)*24,-2-Math.random()*20);s.userData.p=Math.random()*6.28;scene.add(s);twinkles.push(s)}
- planet=new THREE.Group();const sphere=new THREE.Mesh(new THREE.SphereGeometry(3.8,48,48),new THREE.MeshStandardMaterial({color:0x30245f,roughness:.85,metalness:.1,emissive:0x160b3d,emissiveIntensity:.45}));planet.add(sphere);
- const atm=new THREE.Mesh(new THREE.SphereGeometry(3.95,48,48),new THREE.MeshBasicMaterial({color:0x9d50ff,transparent:true,opacity:.12,side:THREE.BackSide}));planet.add(atm);
- const pr=new THREE.Mesh(new THREE.TorusGeometry(4.8,.045,8,100),mat(0x9d45ff,.7,true));pr.rotation.x=1.28;planet.add(pr);planet.position.set(-8,1,-10);scene.add(planet);
- station=new THREE.Group();const body=new THREE.Mesh(new THREE.CylinderGeometry(.22,.22,2,16),new THREE.MeshStandardMaterial({color:0x687398,metalness:.8,roughness:.3}));body.rotation.z=Math.PI/2;station.add(body);
- for(const x of [-1.7,1.7]){const p=new THREE.Mesh(new THREE.BoxGeometry(1.7,.05,.9),new THREE.MeshStandardMaterial({color:0x263c72,metalness:.5,emissive:0x173dff,emissiveIntensity:.7}));p.position.x=x;station.add(p)}station.position.set(8,2,-9);scene.add(station);
- platform=makePlatform();beam=makeBeam();
+
+function placeDemoBet() {
+  const input = document.getElementById("bet");
+  const amount = Number(input.value);
+
+  if (!Number.isFinite(amount) || amount < 0.1) {
+    alert("Minimum bet is 0.1 GRAM");
+    return;
+  }
+
+  if (amount > balance) {
+    alert("Insufficient demo balance");
+    return;
+  }
+
+  alert("This is a visual prototype. Server betting is not connected yet.");
 }
-function resize(){if(!renderer)return;const r=canvas.getBoundingClientRect();if(!r.width||!r.height)return;renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.updateProjectionMatrix()}
-window.addEventListener('resize',resize);
-function spawnParticles(y,n=3){for(let i=0;i<n;i++){const color=Math.random()<.55?0xc04dff:0x51dfff;const m=new THREE.Mesh(new THREE.SphereGeometry(.018+Math.random()*.035,8,6),mat(color,.9,true));m.position.set((Math.random()-.5)*.65,y,(Math.random()-.5)*.5);scene.add(m);particles.push({m,v:new THREE.Vector3((Math.random()-.5)*1.2,.4+Math.random()*1.8,(Math.random()-.5)*.7),life:.4+Math.random()*.6})}}
-function updateParticles(dt){for(let i=particles.length-1;i>=0;i--){const p=particles[i];p.m.position.addScaledVector(p.v,dt);p.life-=dt;p.m.material.opacity=Math.max(0,p.life);if(p.life<=0){scene.remove(p.m);p.m.geometry.dispose();p.m.material.dispose();particles.splice(i,1)}}}
-function setBeamHeight(h){const height=Math.max(.04,h);beam.scale.y=height;beamCore.scale.y=height;beamAura.scale.y=height;beamTop.position.y=height;beam.children[0].position.y=height/2;beam.children[1].position.y=height/2;beam.children[2].position.y=height/2;beam.children[3].position.y=height/2;beamLights[0].position.y=height*.48;beamLights[1].position.y=height*.48}
-function beginCrash(){if(phase!=='flight')return;phase='crash';crashStart=performance.now();$('cash').disabled=true;$('status').textContent=cashed?'✦ جایزه ثبت شد؛ نور را تماشا کن!':'✦ انرژی ناپایدار شد!';$('multiplier').classList.add('crashed');$('multiplier').textContent='✦ '+crashPoint.toFixed(2)+'x'}
-function completeRound(){phase='idle';setBeamHeight(.04);beam.visible=true;beamLights[0].intensity=5;beamLights[1].intensity=2.5;$('start').disabled=false;$('cash').disabled=true;$('status').textContent=cashed?'✦ برنده شدی! دور بعد آماده است':'انرژی خاموش شد؛ دور بعد آماده است';history.unshift(crashPoint);history=history.slice(0,30);save();renderHistory();updateBalance()}
-function animate(){
- requestAnimationFrame(animate);const dt=Math.min(clock.getDelta(),.04),now=performance.now();
- if(phase==='flight'){
-  const sec=(now-roundStart)/1000;mult=Math.exp(sec*.22);
-  if(mult>=crashPoint){mult=crashPoint;beginCrash()}else $('multiplier').textContent=mult.toFixed(2)+'x';
-  const travel=(Math.exp(sec*.34)-1);const height= Math.min(22,.22+travel*2.35);
-  setBeamHeight(height);
-  beam.rotation.y+=dt*.32;beamTop.rotation.y+=dt*1.5;
-  const pulse=1+Math.sin(now*.012)*.07;beam.scale.x=pulse;beam.scale.z=pulse;beamCore.scale.x=1+pulse*.08;beamCore.scale.z=1+pulse*.08;
-  beamLights[0].intensity=6+Math.sin(now*.01)*2+Math.min(sec,8)*.8;beamLights[1].intensity=3+Math.sin(now*.014)*1.2;
-  if(Math.random()<.85)spawnParticles(BASE_Y+height*(.25+Math.random()*.7),2);
-  $('mode').textContent='✦ ENERGY BEAM • '+(sec<2?'IGNITION':sec<5?'ACCELERATING':'MAXIMUM ASCENT');
-  // Keep the camera fixed: the growing beam visibly travels upward through the viewport.
- }else if(phase==='crash'){
-  const e=(now-crashStart)/1000;const fade=Math.max(0,1-e*.62);
-  beamCore.material.opacity=.96*fade;beam.material.opacity=.22*fade;beamAura.material.opacity=.11*fade;
-  beamLights[0].intensity=Math.max(0,8-e*6);beamLights[1].intensity=Math.max(0,3-e*3);
-  if(Math.random()<.8)spawnParticles(BASE_Y+Math.random()*Math.max(.5,beam.scale.y),3);
-  if(e>1.8){beamCore.material.opacity=.96;beam.material.opacity=.22;beamAura.material.opacity=.11;completeRound()}
- }else{
-  setBeamHeight(.045+Math.sin(now*.002)*.012);beam.visible=true;beamCore.material.opacity=.55;beam.material.opacity=.12;beamAura.material.opacity=.08;
-  beamLights[0].intensity=3.5+Math.sin(now*.003)*.7;beamLights[1].intensity=1.4;
-  beamTop.rotation.y+=dt*.3;
- }
- rings.forEach(r=>{r.mesh.rotation.z+=dt*r.speed*(phase==='flight'?1:.35)});
- if(phase!=='crash')platform.rotation.y+=dt*.12;
- planet.rotation.y+=dt*.012;station.rotation.y+=dt*.025;
- twinkles.forEach(s=>{s.material.opacity=.18+.72*(.5+.5*Math.sin(now*.002+s.userData.p))});
- updateParticles(dt);renderer.render(scene,camera);
-}
-function renderHistory(){$('history').innerHTML='';if(!history.length){$('history').innerHTML='<span style="color:#9b88b3">No rounds yet</span>';return}history.slice(0,12).forEach(n=>{const e=document.createElement('span');e.className='pill '+(n<2?'low':n<5?'mid':'');e.textContent=n.toFixed(2)+'x';$('history').appendChild(e)})}
-window.startGame=function(){
- if(phase!=='idle')return;bet=Number($('bet').value);
- if(!Number.isInteger(bet)||bet<1||bet>balance){$('status').textContent='INVALID BET AMOUNT';return}
- balance-=bet;save();updateBalance();mult=1;cashed=false;prize=0;
- crashPoint=Math.max(1.05,.98/Math.random());roundStart=performance.now();phase='flight';
- beam.visible=true;setBeamHeight(.08);beamCore.material.opacity=.96;beam.material.opacity=.22;beamAura.material.opacity=.11;
- beamLights[0].intensity=7;beamLights[1].intensity=3;
- $('start').disabled=true;$('cash').disabled=false;$('multiplier').classList.remove('crashed');$('multiplier').textContent='1.00x';
- $('status').textContent='✦ ENERGY IGNITION • GOOD LUCK';$('mode').textContent='✦ ENERGY BEAM • IGNITION';
-};
-window.cashOut=function(){if(phase!=='flight'||cashed)return;cashed=true;prize=Math.floor(bet*mult);balance+=prize;$('cash').disabled=true;$('status').textContent='✦ '+prize.toLocaleString()+' CG دریافت کردی؛ صعود ادامه دارد!';save();updateBalance()};
-try{createSpace();resize();$('loading').style.display='none';animate()}catch(e){console.error('CRASH GIFT startup error:',e);$('loading').textContent='خطا در اجرای موتور سه‌بعدی؛ صفحه را دوباره بارگذاری کن.'}
-updateBalance();renderHistory();
+
+document.getElementById("balance").textContent =
+  balance.toFixed(4);
 </script>
-</body></html>
+</body>
+</html>
